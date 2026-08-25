@@ -14,6 +14,167 @@
 
 body{
   font-family:Arial,sans-serif;
+  background:linear-gradient(180deg,#18002b,#31004d,#120018);
+  color:white;
+  min-height:100vh;
+  padding-bottom:70px;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 15px 8px;
+}
+
+.logo{
+  font-size:21px;
+  font-weight:bold;
+  letter-spacing:1.5px;
+}
+
+.bell{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#6418a0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:19px;
+}
+
+.banner{
+  margin:8px 14px 18px;
+  min-height:135px;
+  border-radius:16px;
+  padding:18px;
+  background:linear-gradient(135deg,#5e0b91,#b21ee3);
+  box-shadow:0 0 20px rgba(180,50,255,.4);
+}
+
+.banner h1{
+  font-size:22px;
+  margin-bottom:7px;
+}
+
+.banner p{
+  color:#eee;
+  font-size:13px;
+  margin-bottom:13px;
+}
+
+.btn{
+  border:0;
+  background:#ff1493;
+  color:white;
+  padding:9px 19px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.section-title{
+  font-size:18px;
+  margin:15px;
+}
+
+.match{
+  margin:10px 14px;
+  padding:13px;
+  background:#fff;
+  color:#18001f;
+  border-radius:15px;
+  box-shadow:0 0 15px rgba(180,50,255,.25);
+}
+
+.match-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.game{
+  color:#7210a7;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.live{
+  color:#e60000;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.match h3{
+  font-size:16px;
+}
+
+.info{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+  margin:10px 0;
+}
+
+.info div{
+  background:#7314a5;
+  color:white;
+  padding:7px 3px;
+  border-radius:8px;
+  text-align:center;
+  font-size:10px;
+}
+
+.info strong{
+  display:block;
+  font-size:14px;
+  margin-top:3px;
+}
+
+.join{
+  width:100%;
+  background:linear-gradient(90deg,#4e0a9c,#a416d8);
+  color:white;
+  border:0;
+  padding:10px;
+  border-radius:10px;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:62px;
+  background:#050505;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  border-top:1px solid #52206b;
+}
+
+.nav{
+  text-align:center;
+  color:#aaa;
+  font-size:10px;
+}
+
+.nav span{
+  display:block;
+  font-size:20px;
+  margin-bottom:2px;
+}
+
+.nav.active{
+  color:#c83cff;
+}
+</style>
+
+body{
+  font-family:Arial,sans-serif;
   background:
     radial-gradient(circle at 50% 20%,#4d0870 0%,transparent 35%),
     linear-gradient(180deg,#170024,#31004d,#100015);
