@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TRUSTED OP - Free Fire Tournaments</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:linear-gradient(180deg,#18002b,#31004d,#120018);
+  color:white;
+  min-height:100vh;
+  padding-bottom:80px;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+.bell{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#6418a0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:21px;
+}
+
+.banner{
+  margin:5px 18px 25px;
+  min-height:170px;
+  border-radius:20px;
+  padding:25px;
+  background:linear-gradient(135deg,#5e0b91,#b21ee3);
+  box-shadow:0 0 25px rgba(180,50,255,.45);
+}
+
+.banner h1{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.banner p{
+  color:#eee;
+  margin-bottom:18px;
+}
+
+.btn{
+  border:0;
+  background:#ff1493;
+  color:white;
+  padding:12px 25px;
+  border-radius:25px;
+  font-weight:bold;
+}
+
+.section-title{
+  font-size:22px;
+  margin:20px;
+}
+
+.match{
+  margin:15px 18px;
+  padding:18px;
+  background:#fff;
+  color:#18001f;
+  border-radius:18px;
+  box-shadow:0 0 20px rgba(180,50,255,.3);
+}
+
+.match-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:15px;
+}
+
+.game{
+  color:#7210a7;
+  font-weight:bold;
+}
+
+.live{
+  color:#e60000;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.info{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin:15px 0;
+}
+
+.info div{
+  background:#7314a5;
+  color:white;
+  padding:10px 5px;
+  border-radius:10px;
+  text-align:center;
+  font-size:12px;
+}
+
+.info strong{
+  display:block;
+  font-size:16px;
+  margin-top:5px;
+}
+
+.join{
+  width:100%;
+  background:linear-gradient(90deg,#4e0a9c,#a416d8);
+  color:white;
+  border:0;
+  padding:13px;
+  border-radius:12px;
+  font-size:16px;
+  font-weight:bold;
+}
+
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:70px;
+  background:#050505;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  border-top:1px solid #52206b;
+}
+
+.nav{
+  text-align:center;
+  color:#aaa;
+  font-size:12px;
+}
+
+.nav span{
+  display:block;
+  font-size:24px;
+  margin-bottom:3px;
+}
+
+.nav.active{
+  color:#c83cff;
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="logo">TRUSTED OP</div>
+  <div class="bell">🔔</div>
+</header>
+
+<section class="banner">
+  <h1>🔥 FREE FIRE TOURNAMENT</h1>
+  <p>Play matches • Win prizes • Compete with players</p>
+  <button class="btn">VIEW MATCHES</button>
+</section>
+
+<h2 class="section-title">🏆 Upcoming Matches</h2>
+
+<div class="match">
+  <div class="match-top">
+    <div class="game">FREE FIRE SOLO</div>
+    <div class="live">● UPCOMING</div>
+  </div>
+
+  <h3>Solo Match #23707</h3>
+
+  <div class="info">
+    <div>🏆 Prize<strong>₹380</strong></div>
+    <div>🎯 Per Kill<strong>₹3</strong></div>
+    <div>💰 Entry<strong>₹5</strong></div>
+  </div>
+
+  <div class="info">
+    <div>TYPE<strong>Solo</strong></div>
+    <div>VERSION<strong>TPP</strong></div>
+    <div>MAP<strong>Bermuda</strong></div>
+  </div>
+
+  <button class="join" onclick="joinMatch()">
+    JOIN NOW
+  </button>
+</div>
+
+<div class="match">
+  <div class="match-top">
+    <div class="game">FREE FIRE DUO</div>
+    <div class="live">● UPCOMING</div>
+  </div>
+
+  <h3>Duo Match #23708</h3>
+
+  <div class="info">
+    <div>🏆 Prize<strong>₹380</strong></div>
+    <div>🎯 Per Kill<strong>₹3</strong></div>
+    <div>💰 Entry<strong>₹5</strong></div>
+  </div>
+
+  <div class="info">
+    <div>TYPE<strong>Duo</strong></div>
+    <div>VERSION<strong>TPP</strong></div>
+    <div>MAP<strong>Bermuda</strong></div>
+  </div>
+
+  <button class="join" onclick="joinMatch()">
+    JOIN NOW
+  </button>
+</div>
+
+<div class="match">
+  <div class="match-top">
+    <div class="game">FREE FIRE SQUAD</div>
+    <div class="live">● UPCOMING</div>
+  </div>
+
+  <h3>Squad Match #23709</h3>
+
+  <div class="info">
+    <div>🏆 Prize<strong>₹1,000</strong></div>
+    <div>🎯 Per Kill<strong>₹5</strong></div>
+    <div>💰 Entry<strong>₹20</strong></div>
+  </div>
+
+  <div class="info">
+    <div>TYPE<strong>Squad</strong></div>
+    <div>VERSION<strong>TPP</strong></div>
+    <div>MAP<strong>Bermuda</strong></div>
+  </div>
+
+  <button class="join" onclick="joinMatch()">
+    JOIN NOW
+  </button>
+</div>
+
+<nav class="bottom">
+  <div class="nav active">
+    <span>🏠</span>HOME
+  </div>
+
+  <div class="nav">
+    <span>🏆</span>MATCHES
+  </div>
+
+  <div class="nav">
+    <span>🎟️</span>MY MATCHES
+  </div>
+
+  <div class="nav">
+    <span>👤</span>PROFILE
+  </div>
+</nav>
+
+<script>
+function joinMatch(){
+  alert("Tournament registration will be connected next.");
+}
+</script>
+
+</body>
+                                      </html>
