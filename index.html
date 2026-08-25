@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>TRUSTED OP - Free Fire Tournaments</title>
+<title>TRUSTED OP - Free Fire Tournament</title>
 
 <style>
 *{
@@ -15,107 +14,180 @@
 
 body{
   font-family:Arial,sans-serif;
-  background:linear-gradient(180deg,#18002b,#31004d,#120018);
-  color:white;
+  background:
+    radial-gradient(circle at 50% 20%,#4d0870 0%,transparent 35%),
+    linear-gradient(180deg,#170024,#31004d,#100015);
+  color:#fff;
   min-height:100vh;
-  padding-bottom:80px;
+  padding-bottom:82px;
 }
 
+button{
+  font-family:inherit;
+  cursor:pointer;
+}
+
+/* HEADER */
 .header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:20px;
+  padding:20px 18px 12px;
 }
 
 .logo{
-  font-size:25px;
-  font-weight:bold;
+  font-size:26px;
+  font-weight:800;
   letter-spacing:2px;
 }
 
 .bell{
-  width:42px;
-  height:42px;
+  width:45px;
+  height:45px;
   border-radius:50%;
-  background:#6418a0;
+  background:linear-gradient(145deg,#7b20bd,#471078);
   display:flex;
   justify-content:center;
   align-items:center;
   font-size:21px;
+  box-shadow:0 0 18px rgba(191,50,255,.35);
 }
 
+/* PAGES */
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+/* HOME BANNER */
 .banner{
-  margin:5px 18px 25px;
-  min-height:170px;
-  border-radius:20px;
-  padding:25px;
-  background:linear-gradient(135deg,#5e0b91,#b21ee3);
-  box-shadow:0 0 25px rgba(180,50,255,.45);
+  margin:12px 18px 25px;
+  padding:25px 22px;
+  min-height:185px;
+  border-radius:23px;
+  background:linear-gradient(135deg,#68119c,#bd14e6);
+  box-shadow:0 0 28px rgba(207,36,255,.42);
 }
 
 .banner h1{
-  font-size:28px;
+  font-size:27px;
   margin-bottom:10px;
 }
 
 .banner p{
   color:#eee;
-  margin-bottom:18px;
+  line-height:1.5;
+  margin-bottom:20px;
 }
 
-.btn{
+.primary-btn{
   border:0;
-  background:#ff1493;
+  background:linear-gradient(90deg,#ff008c,#ff1493);
   color:white;
-  padding:12px 25px;
-  border-radius:25px;
+  padding:13px 25px;
+  border-radius:28px;
   font-weight:bold;
+  font-size:14px;
 }
 
+/* SECTION */
 .section-title{
   font-size:22px;
   margin:20px;
 }
 
+/* QUICK CARDS */
+.quick{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:0 18px 25px;
+}
+
+.quick-card{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:15px;
+  padding:15px 5px;
+  text-align:center;
+}
+
+.quick-card span{
+  display:block;
+  font-size:24px;
+  margin-bottom:7px;
+}
+
+.quick-card small{
+  color:#ddd;
+}
+
+/* MATCH */
 .match{
   margin:15px 18px;
   padding:18px;
   background:#fff;
   color:#18001f;
-  border-radius:18px;
-  box-shadow:0 0 20px rgba(180,50,255,.3);
+  border-radius:19px;
+  box-shadow:0 0 22px rgba(180,50,255,.25);
 }
 
 .match-top{
   display:flex;
   justify-content:space-between;
-  margin-bottom:15px;
+  align-items:center;
+  margin-bottom:14px;
 }
 
 .game{
-  color:#7210a7;
+  color:#7512a8;
+  font-weight:bold;
+  font-size:15px;
+}
+
+.status{
+  font-size:12px;
   font-weight:bold;
 }
 
-.live{
-  color:#e60000;
+.upcoming{
+  color:#e00000;
+}
+
+.ongoing{
+  color:#008f39;
+}
+
+.result{
+  color:#7310a7;
+}
+
+.match h3{
+  font-size:19px;
+  margin-bottom:15px;
+}
+
+.match-time{
+  color:#777;
   font-size:13px;
-  font-weight:bold;
+  margin-bottom:12px;
 }
 
 .info{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:8px;
-  margin:15px 0;
+  margin:10px 0;
 }
 
 .info div{
-  background:#7314a5;
+  background:linear-gradient(145deg,#7513a8,#8f18bd);
   color:white;
-  padding:10px 5px;
-  border-radius:10px;
+  padding:10px 4px;
+  border-radius:11px;
   text-align:center;
   font-size:12px;
 }
@@ -128,159 +200,858 @@ body{
 
 .join{
   width:100%;
-  background:linear-gradient(90deg,#4e0a9c,#a416d8);
+  background:linear-gradient(90deg,#51069d,#bb13df);
   color:white;
   border:0;
-  padding:13px;
-  border-radius:12px;
+  padding:14px;
+  border-radius:13px;
   font-size:16px;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+/* TABS */
+.tabs{
+  display:flex;
+  margin:15px 18px 20px;
+  padding:5px;
+  background:#16072d;
+  border-radius:30px;
+  border:1px solid #68238b;
+}
+
+.tab{
+  flex:1;
+  border:0;
+  background:transparent;
+  color:#ccc;
+  padding:11px 5px;
+  border-radius:25px;
+}
+
+.tab.active{
+  background:linear-gradient(90deg,#7414b3,#a51bd4);
+  color:#fff;
+}
+
+/* PAGE HEADER */
+.page-title{
+  text-align:center;
+  font-size:25px;
+  padding:20px 0 5px;
+}
+
+/* PROFILE */
+.profile-box{
+  margin:20px 18px;
+  padding:25px 18px;
+  border-radius:20px;
+  background:linear-gradient(145deg,#360653,#1c0230);
+  text-align:center;
+  border:1px solid #642084;
+}
+
+.avatar{
+  width:82px;
+  height:82px;
+  margin:auto;
+  border-radius:50%;
+  background:linear-gradient(145deg,#8b20c5,#4d0876);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  border:3px solid #a735dc;
+}
+
+.profile-box h2{
+  margin-top:13px;
+}
+
+.profile-box p{
+  color:#bbb;
+  margin-top:5px;
+}
+
+.menu-list{
+  margin:20px 18px;
+}
+
+.menu-item{
+  width:100%;
+  border:0;
+  margin-bottom:10px;
+  padding:17px;
+  border-radius:13px;
+  background:#30005a;
+  color:white;
+  text-align:left;
+  font-size:16px;
+  display:flex;
+  justify-content:space-between;
+}
+
+/* WALLET */
+.wallet{
+  margin:20px 18px;
+  padding:25px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#7113a8,#b51bdb);
+  text-align:center;
+  box-shadow:0 0 25px rgba(193,38,255,.35);
+}
+
+.wallet small{
+  color:#eee;
+}
+
+.balance{
+  font-size:34px;
+  font-weight:bold;
+  margin:10px 0 18px;
+}
+
+.wallet-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.wallet-buttons button{
+  padding:12px;
+  border:0;
+  border-radius:12px;
+  background:#fff;
+  color:#6d0e9c;
   font-weight:bold;
 }
 
+/* EMPTY */
+.empty{
+  margin:30px 18px;
+  padding:35px 20px;
+  background:rgba(255,255,255,.06);
+  border-radius:18px;
+  text-align:center;
+  color:#bbb;
+}
+
+.empty span{
+  display:block;
+  font-size:45px;
+  margin-bottom:10px;
+}
+
+/* BOTTOM NAV */
 .bottom{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
-  height:70px;
+  height:72px;
   background:#050505;
   display:flex;
   justify-content:space-around;
   align-items:center;
   border-top:1px solid #52206b;
+  z-index:100;
 }
 
 .nav{
+  flex:1;
   text-align:center;
   color:#aaa;
-  font-size:12px;
+  font-size:11px;
+  padding-top:5px;
 }
 
 .nav span{
   display:block;
-  font-size:24px;
+  font-size:23px;
   margin-bottom:3px;
 }
 
 .nav.active{
-  color:#c83cff;
+  color:#cf3cff;
+}
+
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  z-index:200;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal-box{
+  width:100%;
+  max-width:420px;
+  background:#fff;
+  color:#17001e;
+  border-radius:20px;
+  padding:22px;
+}
+
+.modal-box h2{
+  color:#7411a7;
+  margin-bottom:10px;
+}
+
+.close{
+  float:right;
+  border:0;
+  background:#eee;
+  border-radius:50%;
+  width:30px;
+  height:30px;
+}
+
+.modal-row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid #ddd;
+}
+
+@media(max-width:360px){
+  .banner h1{
+    font-size:23px;
+  }
+
+  .info div{
+    font-size:10px;
+  }
+
+  .info strong{
+    font-size:14px;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="header">
   <div class="logo">TRUSTED OP</div>
-  <div class="bell">🔔</div>
+  <button class="bell" onclick="showNotification()">🔔</button>
 </header>
 
-<section class="banner">
-  <h1>🔥 FREE FIRE TOURNAMENT</h1>
-  <p>Play matches • Win prizes • Compete with players</p>
-  <button class="btn">VIEW MATCHES</button>
+
+<!-- ================= HOME ================= -->
+<section id="home" class="page active">
+
+  <div class="banner">
+    <h1>🔥 FREE FIRE TOURNAMENT</h1>
+    <p>
+      Play matches • Win prizes • Compete with players
+    </p>
+    <button class="primary-btn" onclick="openPage('matches')">
+      VIEW MATCHES
+    </button>
+  </div>
+
+  <h2 class="section-title">🏆 Tournament Zone</h2>
+
+  <div class="quick">
+    <div class="quick-card" onclick="openPage('matches')">
+      <span>🏆</span>
+      <small>Matches</small>
+    </div>
+
+    <div class="quick-card" onclick="openPage('myMatches')">
+      <span>🎟️</span>
+      <small>My Matches</small>
+    </div>
+
+    <div class="quick-card" onclick="openPage('profile')">
+      <span>👤</span>
+      <small>Profile</small>
+    </div>
+  </div>
+
+  <h2 class="section-title">🔥 Upcoming Matches</h2>
+
+  <div id="homeMatches"></div>
+
 </section>
 
-<h2 class="section-title">🏆 Upcoming Matches</h2>
 
-<div class="match">
-  <div class="match-top">
-    <div class="game">FREE FIRE SOLO</div>
-    <div class="live">● UPCOMING</div>
+<!-- ================= MATCHES ================= -->
+<section id="matches" class="page">
+
+  <h1 class="page-title">🏆 FREE FIRE MATCHES</h1>
+
+  <div class="tabs">
+    <button class="tab active" onclick="filterMatches('upcoming',this)">
+      Upcoming
+    </button>
+
+    <button class="tab" onclick="filterMatches('ongoing',this)">
+      Ongoing
+    </button>
+
+    <button class="tab" onclick="filterMatches('result',this)">
+      Result
+    </button>
   </div>
 
-  <h3>Solo Match #23707</h3>
+  <div id="matchesList"></div>
 
-  <div class="info">
-    <div>🏆 Prize<strong>₹380</strong></div>
-    <div>🎯 Per Kill<strong>₹3</strong></div>
-    <div>💰 Entry<strong>₹5</strong></div>
+</section>
+
+
+<!-- ================= MY MATCHES ================= -->
+<section id="myMatches" class="page">
+
+  <h1 class="page-title">🎟️ MY MATCHES</h1>
+
+  <div class="empty">
+    <span>🎮</span>
+    <h3>No Joined Matches</h3>
+    <p style="margin-top:8px;">
+      Join a Free Fire tournament and your matches will appear here.
+    </p>
+
+    <button class="primary-btn"
+            style="margin-top:18px"
+            onclick="openPage('matches')">
+      FIND MATCH
+    </button>
   </div>
 
-  <div class="info">
-    <div>TYPE<strong>Solo</strong></div>
-    <div>VERSION<strong>TPP</strong></div>
-    <div>MAP<strong>Bermuda</strong></div>
+</section>
+
+
+<!-- ================= PROFILE ================= -->
+<section id="profile" class="page">
+
+  <h1 class="page-title">👤 PROFILE</h1>
+
+  <div class="profile-box">
+
+    <div class="avatar">👤</div>
+
+    <h2>TRUSTED OP PLAYER</h2>
+    <p>Free Fire Player</p>
+
   </div>
 
-  <button class="join" onclick="joinMatch()">
-    JOIN NOW
-  </button>
-</div>
+  <div class="menu-list">
 
-<div class="match">
-  <div class="match-top">
-    <div class="game">FREE FIRE DUO</div>
-    <div class="live">● UPCOMING</div>
+    <button class="menu-item" onclick="openWallet()">
+      💰 Wallet
+      <span>›</span>
+    </button>
+
+    <button class="menu-item" onclick="alert('Match history will be connected next.')">
+      📜 Match History
+      <span>›</span>
+    </button>
+
+    <button class="menu-item" onclick="alert('Winners section will be connected next.')">
+      🏆 Winners
+      <span>›</span>
+    </button>
+
+    <button class="menu-item" onclick="alert('Customer support will be connected next.')">
+      💬 Customer Support
+      <span>›</span>
+    </button>
+
+    <button class="menu-item" onclick="alert('Terms & Conditions')">
+      📋 Terms & Conditions
+      <span>›</span>
+    </button>
+
+    <button class="menu-item" onclick="alert('TRUSTED OP - Free Fire Tournament Platform')">
+      ℹ️ About Us
+      <span>›</span>
+    </button>
+
   </div>
 
-  <h3>Duo Match #23708</h3>
+</section>
 
-  <div class="info">
-    <div>🏆 Prize<strong>₹380</strong></div>
-    <div>🎯 Per Kill<strong>₹3</strong></div>
-    <div>💰 Entry<strong>₹5</strong></div>
+
+<!-- ================= WALLET ================= -->
+<section id="wallet" class="page">
+
+  <h1 class="page-title">💰 WALLET</h1>
+
+  <div class="wallet">
+
+    <small>Available Balance</small>
+
+    <div class="balance">₹0.00</div>
+
+    <div class="wallet-buttons">
+
+      <button onclick="alert('Add Money system will be connected later.')">
+        + ADD MONEY
+      </button>
+
+      <button onclick="alert('Withdrawal system will be connected later.')">
+        WITHDRAW
+      </button>
+
+    </div>
+
   </div>
 
-  <div class="info">
-    <div>TYPE<strong>Duo</strong></div>
-    <div>VERSION<strong>TPP</strong></div>
-    <div>MAP<strong>Bermuda</strong></div>
+  <div class="empty">
+    <span>💳</span>
+    <h3>Wallet History</h3>
+    <p style="margin-top:8px;">
+      Your transactions will appear here.
+    </p>
   </div>
 
-  <button class="join" onclick="joinMatch()">
-    JOIN NOW
-  </button>
-</div>
+</section>
 
-<div class="match">
-  <div class="match-top">
-    <div class="game">FREE FIRE SQUAD</div>
-    <div class="live">● UPCOMING</div>
-  </div>
 
-  <h3>Squad Match #23709</h3>
-
-  <div class="info">
-    <div>🏆 Prize<strong>₹1,000</strong></div>
-    <div>🎯 Per Kill<strong>₹5</strong></div>
-    <div>💰 Entry<strong>₹20</strong></div>
-  </div>
-
-  <div class="info">
-    <div>TYPE<strong>Squad</strong></div>
-    <div>VERSION<strong>TPP</strong></div>
-    <div>MAP<strong>Bermuda</strong></div>
-  </div>
-
-  <button class="join" onclick="joinMatch()">
-    JOIN NOW
-  </button>
-</div>
-
+<!-- ================= BOTTOM NAV ================= -->
 <nav class="bottom">
-  <div class="nav active">
-    <span>🏠</span>HOME
+
+  <div class="nav active" onclick="openPage('home')">
+    <span>🏠</span>
+    HOME
   </div>
 
-  <div class="nav">
-    <span>🏆</span>MATCHES
+  <div class="nav" onclick="openPage('matches')">
+    <span>🏆</span>
+    MATCHES
   </div>
 
-  <div class="nav">
-    <span>🎟️</span>MY MATCHES
+  <div class="nav" onclick="openPage('myMatches')">
+    <span>🎟️</span>
+    MY MATCHES
   </div>
 
-  <div class="nav">
-    <span>👤</span>PROFILE
+  <div class="nav" onclick="openPage('profile')">
+    <span>👤</span>
+    PROFILE
   </div>
+
 </nav>
 
+
+<!-- ================= MATCH MODAL ================= -->
+<div id="matchModal" class="modal">
+
+  <div class="modal-box">
+
+    <button class="close" onclick="closeModal()">✕</button>
+
+    <h2 id="modalTitle">FREE FIRE MATCH</h2>
+
+    <p id="modalId"></p>
+
+    <div class="modal-row">
+      <span>🏆 Prize Pool</span>
+      <strong id="modalPrize"></strong>
+    </div>
+
+    <div class="modal-row">
+      <span>🎯 Per Kill</span>
+      <strong id="modalKill"></strong>
+    </div>
+
+    <div class="modal-row">
+      <span>💰 Entry Fee</span>
+      <strong id="modalEntry"></strong>
+    </div>
+
+    <div class="modal-row">
+      <span>🎮 Type</span>
+      <strong id="modalType"></strong>
+    </div>
+
+    <div class="modal-row">
+      <span>🗺️ Map</span>
+      <strong id="modalMap"></strong>
+    </div>
+
+    <button class="join"
+            style="margin-top:18px"
+            onclick="confirmJoin()">
+      JOIN TOURNAMENT
+    </button>
+
+  </div>
+
+</div>
+
+
 <script>
-function joinMatch(){
-  alert("Tournament registration will be connected next.");
+
+/* ================= MATCH DATA ================= */
+
+const matches = [
+
+  {
+    id:"23707",
+    name:"FREE FIRE SOLO",
+    title:"Solo Match #23707",
+    status:"upcoming",
+    time:"Today • 09:10 AM",
+    prize:"₹380",
+    kill:"₹3",
+    entry:"₹5",
+    type:"Solo",
+    version:"TPP",
+    map:"Bermuda"
+  },
+
+  {
+    id:"23708",
+    name:"FREE FIRE DUO",
+    title:"Duo Match #23708",
+    status:"upcoming",
+    time:"Today • 09:30 AM",
+    prize:"₹380",
+    kill:"₹3",
+    entry:"₹5",
+    type:"Duo",
+    version:"TPP",
+    map:"Bermuda"
+  },
+
+  {
+    id:"23709",
+    name:"FREE FIRE SQUAD",
+    title:"Squad Match #23709",
+    status:"upcoming",
+    time:"Today • 09:50 AM",
+    prize:"₹1,000",
+    kill:"₹5",
+    entry:"₹20",
+    type:"Squad",
+    version:"TPP",
+    map:"Bermuda"
+  },
+
+  {
+    id:"23710",
+    name:"FREE FIRE SOLO",
+    title:"Solo Match #23710",
+    status:"ongoing",
+    time:"Live Now",
+    prize:"₹500",
+    kill:"₹3",
+    entry:"₹10",
+    type:"Solo",
+    version:"TPP",
+    map:"Bermuda"
+  },
+
+  {
+    id:"23699",
+    name:"FREE FIRE SQUAD",
+    title:"Squad Match #23699",
+    status:"result",
+    time:"Completed",
+    prize:"₹1,500",
+    kill:"₹5",
+    entry:"₹30",
+    type:"Squad",
+    version:"TPP",
+    map:"Bermuda"
+  }
+
+];
+
+
+/* ================= MATCH CARD ================= */
+
+function createMatchCard(match){
+
+  let statusText = "● UPCOMING";
+  let statusClass = "upcoming";
+
+  if(match.status === "ongoing"){
+    statusText = "● LIVE NOW";
+    statusClass = "ongoing";
+  }
+
+  if(match.status === "result"){
+    statusText = "● RESULT";
+    statusClass = "result";
+  }
+
+  return `
+
+  <div class="match">
+
+    <div class="match-top">
+
+      <div class="game">
+        ${match.name}
+      </div>
+
+      <div class="status ${statusClass}">
+        ${statusText}
+      </div>
+
+    </div>
+
+    <h3>${match.title}</h3>
+
+    <div class="match-time">
+      🕒 ${match.time}
+    </div>
+
+    <div class="info">
+
+      <div>
+        🏆 Prize
+        <strong>${match.prize}</strong>
+      </div>
+
+      <div>
+        🎯 Per Kill
+        <strong>${match.kill}</strong>
+      </div>
+
+      <div>
+        💰 Entry
+        <strong>${match.entry}</strong>
+      </div>
+
+    </div>
+
+    <div class="info">
+
+      <div>
+        TYPE
+        <strong>${match.type}</strong>
+      </div>
+
+      <div>
+        VERSION
+        <strong>${match.version}</strong>
+      </div>
+
+      <div>
+        MAP
+        <strong>${match.map}</strong>
+      </div>
+
+    </div>
+
+    ${
+      match.status === "result"
+      ?
+      `<button class="join"
+       onclick="showResult('${match.id}')">
+       VIEW RESULT
+       </button>`
+      :
+      `<button class="join"
+       onclick="openMatch('${match.id}')">
+       ${match.status === "ongoing" ? "VIEW MATCH" : "JOIN NOW"}
+       </button>`
+    }
+
+  </div>
+
+  `;
+
 }
+
+
+/* ================= HOME MATCHES ================= */
+
+function loadHomeMatches(){
+
+  const container =
+    document.getElementById("homeMatches");
+
+  container.innerHTML =
+    matches
+    .filter(m => m.status === "upcoming")
+    .slice(0,2)
+    .map(createMatchCard)
+    .join("");
+
+}
+
+
+/* ================= ALL MATCHES ================= */
+
+function filterMatches(type,button){
+
+  document
+    .querySelectorAll(".tab")
+    .forEach(tab => tab.classList.remove("active"));
+
+  button.classList.add("active");
+
+  const container =
+    document.getElementById("matchesList");
+
+  const filtered =
+    matches.filter(m => m.status === type);
+
+  if(filtered.length === 0){
+
+    container.innerHTML = `
+      <div class="empty">
+        <span>🎮</span>
+        <h3>No Matches Found</h3>
+        <p style="margin-top:8px;">
+          New matches will appear here.
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML =
+    filtered.map(createMatchCard).join("");
+
+}
+
+
+/* ================= PAGE NAVIGATION ================= */
+
+function openPage(page){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(p => p.classList.remove("active"));
+
+  document
+    .getElementById(page)
+    .classList.add("active");
+
+  document
+    .querySelectorAll(".nav")
+    .forEach(n => n.classList.remove("active"));
+
+  if(page === "home")
+    document.querySelectorAll(".nav")[0].classList.add("active");
+
+  if(page === "matches")
+    document.querySelectorAll(".nav")[1].classList.add("active");
+
+  if(page === "myMatches")
+    document.querySelectorAll(".nav")[2].classList.add("active");
+
+  if(page === "profile")
+    document.querySelectorAll(".nav")[3].classList.add("active");
+
+  window.scrollTo(0,0);
+
+  if(page === "matches"){
+    filterMatches(
+      "upcoming",
+      document.querySelector(".tab")
+    );
+  }
+
+}
+
+
+/* ================= OPEN MATCH ================= */
+
+function openMatch(id){
+
+  const match =
+    matches.find(m => m.id === id);
+
+  if(!match) return;
+
+  document.getElementById("modalTitle")
+    .innerText = match.name;
+
+  document.getElementById("modalId")
+    .innerText = match.title;
+
+  document.getElementById("modalPrize")
+    .innerText = match.prize;
+
+  document.getElementById("modalKill")
+    .innerText = match.kill;
+
+  document.getElementById("modalEntry")
+    .innerText = match.entry;
+
+  document.getElementById("modalType")
+    .innerText = match.type;
+
+  document.getElementById("modalMap")
+    .innerText = match.map;
+
+  document.getElementById("matchModal")
+    .style.display = "flex";
+
+}
+
+
+function closeModal(){
+
+  document.getElementById("matchModal")
+    .style.display = "none";
+
+}
+
+
+/* ================= JOIN ================= */
+
+function confirmJoin(){
+
+  alert(
+    "Tournament joining system will be connected next.\n\n" +
+    "Payment + player registration will be added later."
+  );
+
+}
+
+
+/* ================= RESULT ================= */
+
+function showResult(id){
+
+  alert(
+    "Match #" + id +
+    " result section will be connected next."
+  );
+
+}
+
+
+/* ================= NOTIFICATION ================= */
+
+function showNotification(){
+
+  alert(
+    "🔔 TRUSTED OP Notifications\n\n" +
+    "No new notifications."
+  );
+
+}
+
+
+/* ================= WALLET ================= */
+
+function openWallet(){
+
+  openPage("wallet");
+
+}
+
+
+/* ================= START ================= */
+
+loadHomeMatches();
+
 </script>
 
 </body>
-                                      </html>
+</html>
