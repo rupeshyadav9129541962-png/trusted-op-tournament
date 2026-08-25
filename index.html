@@ -14,173 +14,12 @@
 
 body{
   font-family:Arial,sans-serif;
-  background:linear-gradient(180deg,#18002b,#31004d,#120018);
-  color:white;
-  min-height:100vh;
-  padding-bottom:70px;
-}
-
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:14px 15px 8px;
-}
-
-.logo{
-  font-size:21px;
-  font-weight:bold;
-  letter-spacing:1.5px;
-}
-
-.bell{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:#6418a0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:19px;
-}
-
-.banner{
-  margin:8px 14px 18px;
-  min-height:135px;
-  border-radius:16px;
-  padding:18px;
-  background:linear-gradient(135deg,#5e0b91,#b21ee3);
-  box-shadow:0 0 20px rgba(180,50,255,.4);
-}
-
-.banner h1{
-  font-size:22px;
-  margin-bottom:7px;
-}
-
-.banner p{
-  color:#eee;
-  font-size:13px;
-  margin-bottom:13px;
-}
-
-.btn{
-  border:0;
-  background:#ff1493;
-  color:white;
-  padding:9px 19px;
-  border-radius:20px;
-  font-size:13px;
-  font-weight:bold;
-}
-
-.section-title{
-  font-size:18px;
-  margin:15px;
-}
-
-.match{
-  margin:10px 14px;
-  padding:13px;
-  background:#fff;
-  color:#18001f;
-  border-radius:15px;
-  box-shadow:0 0 15px rgba(180,50,255,.25);
-}
-
-.match-top{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:10px;
-}
-
-.game{
-  color:#7210a7;
-  font-size:13px;
-  font-weight:bold;
-}
-
-.live{
-  color:#e60000;
-  font-size:11px;
-  font-weight:bold;
-}
-
-.match h3{
-  font-size:16px;
-}
-
-.info{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:5px;
-  margin:10px 0;
-}
-
-.info div{
-  background:#7314a5;
-  color:white;
-  padding:7px 3px;
-  border-radius:8px;
-  text-align:center;
-  font-size:10px;
-}
-
-.info strong{
-  display:block;
-  font-size:14px;
-  margin-top:3px;
-}
-
-.join{
-  width:100%;
-  background:linear-gradient(90deg,#4e0a9c,#a416d8);
-  color:white;
-  border:0;
-  padding:10px;
-  border-radius:10px;
-  font-size:14px;
-  font-weight:bold;
-}
-
-.bottom{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:62px;
-  background:#050505;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  border-top:1px solid #52206b;
-}
-
-.nav{
-  text-align:center;
-  color:#aaa;
-  font-size:10px;
-}
-
-.nav span{
-  display:block;
-  font-size:20px;
-  margin-bottom:2px;
-}
-
-.nav.active{
-  color:#c83cff;
-}
-</style>
-
-body{
-  font-family:Arial,sans-serif;
   background:
     radial-gradient(circle at 50% 20%,#4d0870 0%,transparent 35%),
     linear-gradient(180deg,#170024,#31004d,#100015);
   color:#fff;
   min-height:100vh;
-  padding-bottom:82px;
+  padding-bottom:68px;
 }
 
 button{
@@ -193,25 +32,26 @@ button{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:20px 18px 12px;
+  padding:14px 16px 9px;
 }
 
 .logo{
-  font-size:26px;
+  font-size:22px;
   font-weight:800;
-  letter-spacing:2px;
+  letter-spacing:1.5px;
 }
 
 .bell{
-  width:45px;
-  height:45px;
+  width:38px;
+  height:38px;
+  border:0;
   border-radius:50%;
   background:linear-gradient(145deg,#7b20bd,#471078);
   display:flex;
   justify-content:center;
   align-items:center;
-  font-size:21px;
-  box-shadow:0 0 18px rgba(191,50,255,.35);
+  font-size:18px;
+  box-shadow:0 0 15px rgba(191,50,255,.35);
 }
 
 /* PAGES */
@@ -225,92 +65,95 @@ button{
 
 /* HOME BANNER */
 .banner{
-  margin:12px 18px 25px;
-  padding:25px 22px;
-  min-height:185px;
-  border-radius:23px;
+  margin:9px 14px 18px;
+  padding:20px 18px;
+  min-height:145px;
+  border-radius:18px;
   background:linear-gradient(135deg,#68119c,#bd14e6);
-  box-shadow:0 0 28px rgba(207,36,255,.42);
+  box-shadow:0 0 22px rgba(207,36,255,.38);
 }
 
 .banner h1{
-  font-size:27px;
-  margin-bottom:10px;
+  font-size:23px;
+  margin-bottom:8px;
+  line-height:1.25;
 }
 
 .banner p{
   color:#eee;
-  line-height:1.5;
-  margin-bottom:20px;
+  line-height:1.4;
+  font-size:13px;
+  margin-bottom:15px;
 }
 
 .primary-btn{
   border:0;
   background:linear-gradient(90deg,#ff008c,#ff1493);
   color:white;
-  padding:13px 25px;
-  border-radius:28px;
+  padding:10px 20px;
+  border-radius:22px;
   font-weight:bold;
-  font-size:14px;
+  font-size:13px;
 }
 
 /* SECTION */
 .section-title{
-  font-size:22px;
-  margin:20px;
+  font-size:19px;
+  margin:16px;
 }
 
 /* QUICK CARDS */
 .quick{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin:0 18px 25px;
+  gap:8px;
+  margin:0 14px 20px;
 }
 
 .quick-card{
   background:rgba(255,255,255,.08);
   border:1px solid rgba(255,255,255,.12);
-  border-radius:15px;
-  padding:15px 5px;
+  border-radius:12px;
+  padding:11px 4px;
   text-align:center;
 }
 
 .quick-card span{
   display:block;
-  font-size:24px;
-  margin-bottom:7px;
+  font-size:20px;
+  margin-bottom:5px;
 }
 
 .quick-card small{
   color:#ddd;
+  font-size:11px;
 }
 
-/* MATCH */
+/* MATCH CARD */
 .match{
-  margin:15px 18px;
-  padding:18px;
+  margin:12px 14px;
+  padding:14px;
   background:#fff;
   color:#18001f;
-  border-radius:19px;
-  box-shadow:0 0 22px rgba(180,50,255,.25);
+  border-radius:16px;
+  box-shadow:0 0 18px rgba(180,50,255,.23);
 }
 
 .match-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:14px;
+  margin-bottom:10px;
 }
 
 .game{
   color:#7512a8;
   font-weight:bold;
-  font-size:15px;
+  font-size:13px;
 }
 
 .status{
-  font-size:12px;
+  font-size:10px;
   font-weight:bold;
 }
 
@@ -327,36 +170,36 @@ button{
 }
 
 .match h3{
-  font-size:19px;
-  margin-bottom:15px;
+  font-size:16px;
+  margin-bottom:10px;
 }
 
 .match-time{
   color:#777;
-  font-size:13px;
-  margin-bottom:12px;
+  font-size:11px;
+  margin-bottom:9px;
 }
 
 .info{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin:10px 0;
+  gap:6px;
+  margin:7px 0;
 }
 
 .info div{
   background:linear-gradient(145deg,#7513a8,#8f18bd);
   color:white;
-  padding:10px 4px;
-  border-radius:11px;
+  padding:8px 3px;
+  border-radius:9px;
   text-align:center;
-  font-size:12px;
+  font-size:10px;
 }
 
 .info strong{
   display:block;
-  font-size:16px;
-  margin-top:5px;
+  font-size:14px;
+  margin-top:4px;
 }
 
 .join{
@@ -364,20 +207,20 @@ button{
   background:linear-gradient(90deg,#51069d,#bb13df);
   color:white;
   border:0;
-  padding:14px;
-  border-radius:13px;
-  font-size:16px;
+  padding:11px;
+  border-radius:10px;
+  font-size:14px;
   font-weight:bold;
-  margin-top:8px;
+  margin-top:6px;
 }
 
 /* TABS */
 .tabs{
   display:flex;
-  margin:15px 18px 20px;
-  padding:5px;
+  margin:12px 14px 16px;
+  padding:4px;
   background:#16072d;
-  border-radius:30px;
+  border-radius:25px;
   border:1px solid #68238b;
 }
 
@@ -386,8 +229,9 @@ button{
   border:0;
   background:transparent;
   color:#ccc;
-  padding:11px 5px;
-  border-radius:25px;
+  padding:9px 4px;
+  border-radius:21px;
+  font-size:12px;
 }
 
 .tab.active{
@@ -398,109 +242,122 @@ button{
 /* PAGE HEADER */
 .page-title{
   text-align:center;
-  font-size:25px;
-  padding:20px 0 5px;
+  font-size:21px;
+  padding:16px 0 3px;
 }
 
 /* PROFILE */
 .profile-box{
-  margin:20px 18px;
-  padding:25px 18px;
-  border-radius:20px;
+  margin:15px 14px;
+  padding:18px 14px;
+  border-radius:16px;
   background:linear-gradient(145deg,#360653,#1c0230);
   text-align:center;
   border:1px solid #642084;
 }
 
 .avatar{
-  width:82px;
-  height:82px;
+  width:65px;
+  height:65px;
   margin:auto;
   border-radius:50%;
   background:linear-gradient(145deg,#8b20c5,#4d0876);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:42px;
-  border:3px solid #a735dc;
+  font-size:32px;
+  border:2px solid #a735dc;
 }
 
 .profile-box h2{
-  margin-top:13px;
+  font-size:18px;
+  margin-top:10px;
 }
 
 .profile-box p{
   color:#bbb;
-  margin-top:5px;
+  font-size:12px;
+  margin-top:4px;
 }
 
 .menu-list{
-  margin:20px 18px;
+  margin:15px 14px;
 }
 
 .menu-item{
   width:100%;
   border:0;
-  margin-bottom:10px;
-  padding:17px;
-  border-radius:13px;
+  margin-bottom:7px;
+  padding:12px;
+  border-radius:10px;
   background:#30005a;
   color:white;
   text-align:left;
-  font-size:16px;
+  font-size:13px;
   display:flex;
   justify-content:space-between;
 }
 
 /* WALLET */
 .wallet{
-  margin:20px 18px;
-  padding:25px;
-  border-radius:20px;
+  margin:15px 14px;
+  padding:19px;
+  border-radius:17px;
   background:linear-gradient(135deg,#7113a8,#b51bdb);
   text-align:center;
-  box-shadow:0 0 25px rgba(193,38,255,.35);
+  box-shadow:0 0 20px rgba(193,38,255,.3);
 }
 
 .wallet small{
   color:#eee;
+  font-size:11px;
 }
 
 .balance{
-  font-size:34px;
+  font-size:28px;
   font-weight:bold;
-  margin:10px 0 18px;
+  margin:8px 0 14px;
 }
 
 .wallet-buttons{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:8px;
 }
 
 .wallet-buttons button{
-  padding:12px;
+  padding:10px 5px;
   border:0;
-  border-radius:12px;
+  border-radius:10px;
   background:#fff;
   color:#6d0e9c;
   font-weight:bold;
+  font-size:11px;
 }
 
 /* EMPTY */
 .empty{
-  margin:30px 18px;
-  padding:35px 20px;
+  margin:20px 14px;
+  padding:25px 15px;
   background:rgba(255,255,255,.06);
-  border-radius:18px;
+  border-radius:15px;
   text-align:center;
   color:#bbb;
 }
 
 .empty span{
   display:block;
-  font-size:45px;
-  margin-bottom:10px;
+  font-size:35px;
+  margin-bottom:8px;
+}
+
+.empty h3{
+  font-size:16px;
+}
+
+.empty p{
+  font-size:12px;
+  line-height:1.4;
 }
 
 /* BOTTOM NAV */
@@ -509,7 +366,7 @@ button{
   bottom:0;
   left:0;
   right:0;
-  height:72px;
+  height:62px;
   background:#050505;
   display:flex;
   justify-content:space-around;
@@ -522,14 +379,14 @@ button{
   flex:1;
   text-align:center;
   color:#aaa;
-  font-size:11px;
-  padding-top:5px;
+  font-size:9px;
+  padding-top:3px;
 }
 
 .nav span{
   display:block;
-  font-size:23px;
-  margin-bottom:3px;
+  font-size:20px;
+  margin-bottom:2px;
 }
 
 .nav.active{
@@ -545,21 +402,22 @@ button{
   z-index:200;
   align-items:center;
   justify-content:center;
-  padding:20px;
+  padding:15px;
 }
 
 .modal-box{
   width:100%;
-  max-width:420px;
+  max-width:390px;
   background:#fff;
   color:#17001e;
-  border-radius:20px;
-  padding:22px;
+  border-radius:16px;
+  padding:18px;
 }
 
 .modal-box h2{
   color:#7411a7;
-  margin-bottom:10px;
+  font-size:19px;
+  margin-bottom:8px;
 }
 
 .close{
@@ -567,28 +425,57 @@ button{
   border:0;
   background:#eee;
   border-radius:50%;
-  width:30px;
-  height:30px;
+  width:28px;
+  height:28px;
 }
 
 .modal-row{
   display:flex;
   justify-content:space-between;
-  padding:12px 0;
+  padding:10px 0;
   border-bottom:1px solid #ddd;
+  font-size:13px;
 }
 
+/* SMALL MOBILE */
 @media(max-width:360px){
+
+  .logo{
+    font-size:20px;
+  }
+
+  .banner{
+    padding:17px 15px;
+    min-height:135px;
+  }
+
   .banner h1{
-    font-size:23px;
+    font-size:20px;
+  }
+
+  .banner p{
+    font-size:12px;
+  }
+
+  .match{
+    padding:12px;
   }
 
   .info div{
-    font-size:10px;
+    font-size:9px;
   }
 
   .info strong{
-    font-size:14px;
+    font-size:13px;
+  }
+
+  .match h3{
+    font-size:15px;
+  }
+
+  .join{
+    font-size:13px;
+    padding:10px;
   }
 }
 </style>
@@ -599,7 +486,10 @@ button{
 <!-- HEADER -->
 <header class="header">
   <div class="logo">TRUSTED OP</div>
-  <button class="bell" onclick="showNotification()">🔔</button>
+
+  <button class="bell" onclick="showNotification()">
+    🔔
+  </button>
 </header>
 
 
@@ -607,35 +497,61 @@ button{
 <section id="home" class="page active">
 
   <div class="banner">
+
     <h1>🔥 FREE FIRE TOURNAMENT</h1>
+
     <p>
       Play matches • Win prizes • Compete with players
     </p>
-    <button class="primary-btn" onclick="openPage('matches')">
+
+    <button class="primary-btn"
+            onclick="openPage('matches')">
       VIEW MATCHES
     </button>
+
   </div>
 
-  <h2 class="section-title">🏆 Tournament Zone</h2>
+
+  <h2 class="section-title">
+    🏆 Tournament Zone
+  </h2>
+
 
   <div class="quick">
-    <div class="quick-card" onclick="openPage('matches')">
+
+    <div class="quick-card"
+         onclick="openPage('matches')">
+
       <span>🏆</span>
       <small>Matches</small>
+
     </div>
 
-    <div class="quick-card" onclick="openPage('myMatches')">
+
+    <div class="quick-card"
+         onclick="openPage('myMatches')">
+
       <span>🎟️</span>
       <small>My Matches</small>
+
     </div>
 
-    <div class="quick-card" onclick="openPage('profile')">
+
+    <div class="quick-card"
+         onclick="openPage('profile')">
+
       <span>👤</span>
       <small>Profile</small>
+
     </div>
+
   </div>
 
-  <h2 class="section-title">🔥 Upcoming Matches</h2>
+
+  <h2 class="section-title">
+    🔥 Upcoming Matches
+  </h2>
+
 
   <div id="homeMatches"></div>
 
@@ -645,21 +561,30 @@ button{
 <!-- ================= MATCHES ================= -->
 <section id="matches" class="page">
 
-  <h1 class="page-title">🏆 FREE FIRE MATCHES</h1>
+  <h1 class="page-title">
+    🏆 FREE FIRE MATCHES
+  </h1>
+
 
   <div class="tabs">
-    <button class="tab active" onclick="filterMatches('upcoming',this)">
+
+    <button class="tab active"
+            onclick="filterMatches('upcoming',this)">
       Upcoming
     </button>
 
-    <button class="tab" onclick="filterMatches('ongoing',this)">
+    <button class="tab"
+            onclick="filterMatches('ongoing',this)">
       Ongoing
     </button>
 
-    <button class="tab" onclick="filterMatches('result',this)">
+    <button class="tab"
+            onclick="filterMatches('result',this)">
       Result
     </button>
+
   </div>
+
 
   <div id="matchesList"></div>
 
@@ -669,20 +594,28 @@ button{
 <!-- ================= MY MATCHES ================= -->
 <section id="myMatches" class="page">
 
-  <h1 class="page-title">🎟️ MY MATCHES</h1>
+  <h1 class="page-title">
+    🎟️ MY MATCHES
+  </h1>
+
 
   <div class="empty">
+
     <span>🎮</span>
+
     <h3>No Joined Matches</h3>
-    <p style="margin-top:8px;">
-      Join a Free Fire tournament and your matches will appear here.
+
+    <p style="margin-top:7px;">
+      Join a Free Fire tournament and your matches
+      will appear here.
     </p>
 
     <button class="primary-btn"
-            style="margin-top:18px"
+            style="margin-top:15px"
             onclick="openPage('matches')">
       FIND MATCH
     </button>
+
   </div>
 
 </section>
@@ -691,47 +624,81 @@ button{
 <!-- ================= PROFILE ================= -->
 <section id="profile" class="page">
 
-  <h1 class="page-title">👤 PROFILE</h1>
+  <h1 class="page-title">
+    👤 PROFILE
+  </h1>
+
 
   <div class="profile-box">
 
-    <div class="avatar">👤</div>
+    <div class="avatar">
+      👤
+    </div>
 
-    <h2>TRUSTED OP PLAYER</h2>
-    <p>Free Fire Player</p>
+    <h2>
+      TRUSTED OP PLAYER
+    </h2>
+
+    <p>
+      Free Fire Player
+    </p>
 
   </div>
 
+
   <div class="menu-list">
 
-    <button class="menu-item" onclick="openWallet()">
+    <button class="menu-item"
+            onclick="openWallet()">
+
       💰 Wallet
       <span>›</span>
+
     </button>
 
-    <button class="menu-item" onclick="alert('Match history will be connected next.')">
+
+    <button class="menu-item"
+            onclick="alert('Match history will be connected next.')">
+
       📜 Match History
       <span>›</span>
+
     </button>
 
-    <button class="menu-item" onclick="alert('Winners section will be connected next.')">
+
+    <button class="menu-item"
+            onclick="alert('Winners section will be connected next.')">
+
       🏆 Winners
       <span>›</span>
+
     </button>
 
-    <button class="menu-item" onclick="alert('Customer support will be connected next.')">
+
+    <button class="menu-item"
+            onclick="alert('Customer support will be connected next.')">
+
       💬 Customer Support
       <span>›</span>
+
     </button>
 
-    <button class="menu-item" onclick="alert('Terms & Conditions')">
+
+    <button class="menu-item"
+            onclick="alert('Terms & Conditions')">
+
       📋 Terms & Conditions
       <span>›</span>
+
     </button>
 
-    <button class="menu-item" onclick="alert('TRUSTED OP - Free Fire Tournament Platform')">
+
+    <button class="menu-item"
+            onclick="alert('TRUSTED OP - Free Fire Tournament Platform')">
+
       ℹ️ About Us
       <span>›</span>
+
     </button>
 
   </div>
@@ -742,13 +709,21 @@ button{
 <!-- ================= WALLET ================= -->
 <section id="wallet" class="page">
 
-  <h1 class="page-title">💰 WALLET</h1>
+  <h1 class="page-title">
+    💰 WALLET
+  </h1>
+
 
   <div class="wallet">
 
-    <small>Available Balance</small>
+    <small>
+      Available Balance
+    </small>
 
-    <div class="balance">₹0.00</div>
+    <div class="balance">
+      ₹0.00
+    </div>
+
 
     <div class="wallet-buttons">
 
@@ -764,12 +739,19 @@ button{
 
   </div>
 
+
   <div class="empty">
+
     <span>💳</span>
-    <h3>Wallet History</h3>
-    <p style="margin-top:8px;">
+
+    <h3>
+      Wallet History
+    </h3>
+
+    <p style="margin-top:7px;">
       Your transactions will appear here.
     </p>
+
   </div>
 
 </section>
@@ -778,24 +760,39 @@ button{
 <!-- ================= BOTTOM NAV ================= -->
 <nav class="bottom">
 
-  <div class="nav active" onclick="openPage('home')">
+  <div class="nav active"
+       onclick="openPage('home')">
+
     <span>🏠</span>
     HOME
+
   </div>
 
-  <div class="nav" onclick="openPage('matches')">
+
+  <div class="nav"
+       onclick="openPage('matches')">
+
     <span>🏆</span>
     MATCHES
+
   </div>
 
-  <div class="nav" onclick="openPage('myMatches')">
+
+  <div class="nav"
+       onclick="openPage('myMatches')">
+
     <span>🎟️</span>
     MY MATCHES
+
   </div>
 
-  <div class="nav" onclick="openPage('profile')">
+
+  <div class="nav"
+       onclick="openPage('profile')">
+
     <span>👤</span>
     PROFILE
+
   </div>
 
 </nav>
@@ -806,41 +803,54 @@ button{
 
   <div class="modal-box">
 
-    <button class="close" onclick="closeModal()">✕</button>
+    <button class="close"
+            onclick="closeModal()">
+      ✕
+    </button>
 
-    <h2 id="modalTitle">FREE FIRE MATCH</h2>
+    <h2 id="modalTitle">
+      FREE FIRE MATCH
+    </h2>
 
     <p id="modalId"></p>
+
 
     <div class="modal-row">
       <span>🏆 Prize Pool</span>
       <strong id="modalPrize"></strong>
     </div>
 
+
     <div class="modal-row">
       <span>🎯 Per Kill</span>
       <strong id="modalKill"></strong>
     </div>
+
 
     <div class="modal-row">
       <span>💰 Entry Fee</span>
       <strong id="modalEntry"></strong>
     </div>
 
+
     <div class="modal-row">
       <span>🎮 Type</span>
       <strong id="modalType"></strong>
     </div>
+
 
     <div class="modal-row">
       <span>🗺️ Map</span>
       <strong id="modalMap"></strong>
     </div>
 
+
     <button class="join"
-            style="margin-top:18px"
+            style="margin-top:15px"
             onclick="confirmJoin()">
+
       JOIN TOURNAMENT
+
     </button>
 
   </div>
@@ -931,17 +941,17 @@ const matches = [
 
 function createMatchCard(match){
 
-  let statusText = "● UPCOMING";
-  let statusClass = "upcoming";
+  let statusText="● UPCOMING";
+  let statusClass="upcoming";
 
-  if(match.status === "ongoing"){
-    statusText = "● LIVE NOW";
-    statusClass = "ongoing";
+  if(match.status==="ongoing"){
+    statusText="● LIVE NOW";
+    statusClass="ongoing";
   }
 
-  if(match.status === "result"){
-    statusText = "● RESULT";
-    statusClass = "result";
+  if(match.status==="result"){
+    statusText="● RESULT";
+    statusClass="result";
   }
 
   return `
@@ -960,11 +970,16 @@ function createMatchCard(match){
 
     </div>
 
-    <h3>${match.title}</h3>
+
+    <h3>
+      ${match.title}
+    </h3>
+
 
     <div class="match-time">
       🕒 ${match.time}
     </div>
+
 
     <div class="info">
 
@@ -985,6 +1000,7 @@ function createMatchCard(match){
 
     </div>
 
+
     <div class="info">
 
       <div>
@@ -1004,17 +1020,22 @@ function createMatchCard(match){
 
     </div>
 
+
     ${
-      match.status === "result"
+      match.status==="result"
+
       ?
+
       `<button class="join"
        onclick="showResult('${match.id}')">
        VIEW RESULT
        </button>`
+
       :
+
       `<button class="join"
        onclick="openMatch('${match.id}')">
-       ${match.status === "ongoing" ? "VIEW MATCH" : "JOIN NOW"}
+       ${match.status==="ongoing" ? "VIEW MATCH" : "JOIN NOW"}
        </button>`
     }
 
@@ -1029,12 +1050,12 @@ function createMatchCard(match){
 
 function loadHomeMatches(){
 
-  const container =
+  const container=
     document.getElementById("homeMatches");
 
-  container.innerHTML =
+  container.innerHTML=
     matches
-    .filter(m => m.status === "upcoming")
+    .filter(m=>m.status==="upcoming")
     .slice(0,2)
     .map(createMatchCard)
     .join("");
@@ -1048,32 +1069,38 @@ function filterMatches(type,button){
 
   document
     .querySelectorAll(".tab")
-    .forEach(tab => tab.classList.remove("active"));
+    .forEach(tab=>tab.classList.remove("active"));
 
   button.classList.add("active");
 
-  const container =
+  const container=
     document.getElementById("matchesList");
 
-  const filtered =
-    matches.filter(m => m.status === type);
+  const filtered=
+    matches.filter(m=>m.status===type);
 
-  if(filtered.length === 0){
+  if(filtered.length===0){
 
-    container.innerHTML = `
+    container.innerHTML=`
+
       <div class="empty">
+
         <span>🎮</span>
+
         <h3>No Matches Found</h3>
-        <p style="margin-top:8px;">
+
+        <p style="margin-top:7px;">
           New matches will appear here.
         </p>
+
       </div>
+
     `;
 
     return;
   }
 
-  container.innerHTML =
+  container.innerHTML=
     filtered.map(createMatchCard).join("");
 
 }
@@ -1085,35 +1112,41 @@ function openPage(page){
 
   document
     .querySelectorAll(".page")
-    .forEach(p => p.classList.remove("active"));
+    .forEach(p=>p.classList.remove("active"));
 
   document
     .getElementById(page)
     .classList.add("active");
 
+
   document
     .querySelectorAll(".nav")
-    .forEach(n => n.classList.remove("active"));
+    .forEach(n=>n.classList.remove("active"));
 
-  if(page === "home")
+
+  if(page==="home")
     document.querySelectorAll(".nav")[0].classList.add("active");
 
-  if(page === "matches")
+  if(page==="matches")
     document.querySelectorAll(".nav")[1].classList.add("active");
 
-  if(page === "myMatches")
+  if(page==="myMatches")
     document.querySelectorAll(".nav")[2].classList.add("active");
 
-  if(page === "profile")
+  if(page==="profile")
     document.querySelectorAll(".nav")[3].classList.add("active");
+
 
   window.scrollTo(0,0);
 
-  if(page === "matches"){
+
+  if(page==="matches"){
+
     filterMatches(
       "upcoming",
       document.querySelector(".tab")
     );
+
   }
 
 }
@@ -1123,34 +1156,36 @@ function openPage(page){
 
 function openMatch(id){
 
-  const match =
-    matches.find(m => m.id === id);
+  const match=
+    matches.find(m=>m.id===id);
 
-  if(!match) return;
+  if(!match)return;
+
 
   document.getElementById("modalTitle")
-    .innerText = match.name;
+    .innerText=match.name;
 
   document.getElementById("modalId")
-    .innerText = match.title;
+    .innerText=match.title;
 
   document.getElementById("modalPrize")
-    .innerText = match.prize;
+    .innerText=match.prize;
 
   document.getElementById("modalKill")
-    .innerText = match.kill;
+    .innerText=match.kill;
 
   document.getElementById("modalEntry")
-    .innerText = match.entry;
+    .innerText=match.entry;
 
   document.getElementById("modalType")
-    .innerText = match.type;
+    .innerText=match.type;
 
   document.getElementById("modalMap")
-    .innerText = match.map;
+    .innerText=match.map;
+
 
   document.getElementById("matchModal")
-    .style.display = "flex";
+    .style.display="flex";
 
 }
 
@@ -1158,7 +1193,7 @@ function openMatch(id){
 function closeModal(){
 
   document.getElementById("matchModal")
-    .style.display = "none";
+    .style.display="none";
 
 }
 
@@ -1168,7 +1203,7 @@ function closeModal(){
 function confirmJoin(){
 
   alert(
-    "Tournament joining system will be connected next.\n\n" +
+    "Tournament joining system will be connected next.\n\n"+
     "Payment + player registration will be added later."
   );
 
@@ -1180,7 +1215,7 @@ function confirmJoin(){
 function showResult(id){
 
   alert(
-    "Match #" + id +
+    "Match #"+id+
     " result section will be connected next."
   );
 
@@ -1192,7 +1227,7 @@ function showResult(id){
 function showNotification(){
 
   alert(
-    "🔔 TRUSTED OP Notifications\n\n" +
+    "🔔 TRUSTED OP Notifications\n\n"+
     "No new notifications."
   );
 
