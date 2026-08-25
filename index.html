@@ -1,384 +1,87 @@
-================================================ */
+<script>
 
-function openPage(page){
+/* =====================================================
+   MATCH DATA
+===================================================== */
 
-  document
-    .querySelectorAll(".page")
-    .forEach(p =>
-      p.classList.remove("active")
-    );
+const matches = [
 
+  {
+    id:"53852",
+    name:"FREE FIRE DUO MATCH",
+    title:"FREE FIRE DUO MATCH #53852",
+    status:"upcoming",
+    time:"2026-08-25 10:15 AM",
+    prize:"₹380",
+    kill:"₹3",
+    entry:"₹5",
+    type:"Duo",
+    version:"TPP",
+    map:"BERMUDA"
+  },
 
-  const target =
-    document.getElementById(page);
+  {
+    id:"53854",
+    name:"FREE FIRE SQUAD MATCH",
+    title:"FREE FIRE SQUAD MATCH #53854",
+    status:"upcoming",
+    time:"2026-08-25 10:45 AM",
+    prize:"₹380",
+    kill:"₹7",
+    entry:"₹8",
+    type:"Squad",
+    version:"TPP",
+    map:"BERMUDA"
+  },
 
-  if(target){
-    target.classList.add("active");
+  {
+    id:"53855",
+    name:"FREE FIRE SOLO MATCH",
+    title:"FREE FIRE SOLO MATCH #53855",
+    status:"ongoing",
+    time:"Live Now",
+    prize:"₹500",
+    kill:"₹5",
+    entry:"₹10",
+    type:"Solo",
+    version:"TPP",
+    map:"BERMUDA"
+  },
+
+  {
+    id:"53840",
+    name:"FREE FIRE DUO MATCH",
+    title:"FREE FIRE DUO MATCH #53840",
+    status:"result",
+    time:"Completed",
+    prize:"₹380",
+    kill:"₹3",
+    entry:"₹5",
+    type:"Duo",
+    version:"TPP",
+    map:"BERMUDA"
   }
 
-
-  document
-    .querySelectorAll(".nav")
-    .forEach(n =>
-      n.classList.remove("active")
-    );
-
-
-  if(page === "home")
-    document.querySelectorAll(".nav")[0].classList.add("active");
-
-  if(page === "matches")
-    document.querySelectorAll(".nav")[1].classList.add("active");
-
-  if(page === "myMatches")
-    document.querySelectorAll(".nav")[2].classList.add("active");
-
-  if(page === "profile")
-    document.querySelectorAll(".nav")[3].classList.add("active");
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"instant"
-  });
-
-
-  if(page === "matches"){
-
-    filterMatches(
-      "ongoing",
-      document.querySelectorAll(".tab")[0]
-    );
-
-  }
-
-
-  if(page === "myMatches"){
-    renderMyMatches();
-  }
-
-}
+];
 
 
 /* =====================================================
-   OPEN MATCH
+   WALLET DATA
 ===================================================== */
 
-function openMatch(id){
+let wallet = {
+  deposit: 0,
+  winnings: 187,
+  bonus: 0
+};
 
-  const match =
-    matches.find(m => m.id === id);
+let selectedMatch = null;
 
-  if(!match) return;
+let joinedMatches = [];
 
+let withdrawalRequests = [];
 
-  selectedMatch = match;
-
-
-  document.getElementById("modalTitle")
-    .innerText = match.name;
-
-  document.getElementById("modalId")
-    .innerText = match.title;
-
-  document.getElementById("modalPrize")
-    .innerText = match.prize;
-
-  document.getElementById("modalKill")
-    .innerText = match.kill;
-
-  document.getElementById("modalEntry")
-    .innerText = match.entry;
-
-  document.getElementById("modalType")
-    .innerText = match.type;
-
-  document.getElementById("modalMap")
-    .innerText = match.map;
-
-
-  document
-    .getElementById("matchModal")
-    .classList.add("show");
-
-}
-
-
-/* =====================================================
-   START JOIN
-===================================================== */
-
-function startJoin(){
-
-  if(!selectedMatch) return;
-
-
-  document.getElementById("matchModal")
-    .classList.remove("show");
-
-
-  const amount =
-    selectedMatch.entry.replace("₹","");
-
-
-  document.getElementById("deductAmount")
-    .innerText = amount;
-
-
-  document.getElementById("confirmModal")
-    .classList.add("show");
-
-}
-
-
-/* =====================================================
-   OPEN USER FORM
-===================================================== */
-
-function openJoinForm(){
-
-  document.getElementById("confirmModal")
-    .classList.remove("show");
-
-
-  document.getElementById("joinFormModal")
-    .classList.add("show");
-
-}
-
-
-/* =====================================================
-   SUBMIT JOIN
-===================================================== */
-
-function submitJoin(){
-
-  const name =
-    document.getElementById("playerName")
-      .value.trim();
-
-  const id =
-    document.getElementById("playerId")
-      .value.trim();
-
-
-  if(!name){
-
-    alert("Please enter your Free Fire user name.");
-
-    return;
-  }
-
-
-  if(!id){
-
-    alert("Please enter your Free Fire user ID.");
-
-    return;
-  }
-
-
-  if(!selectedMatch) return;
-
-
-  joinedMatches.push({
-
-    match:selectedMatch,
-
-    playerName:name,
-
-    playerId:id
-
-  });
-
-
-  closeModal("joinFormModal");
-
-
-  document.getElementById("playerName").value = "";
-
-  document.getElementById("playerId").value = "";
-
-
-  alert(
-    "Join request submitted successfully!\\n\\n" +
-    "Match: " + selectedMatch.title
-  );
-
-
-  renderMyMatches();
-
-}
-
-
-/* =====================================================
-   MY MATCHES
-===================================================== */
-
-function renderMyMatches(){
-
-  const container =
-    document.getElementById("myMatchesList");
-
-
-  if(joinedMatches.length === 0){
-
-    container.innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">🎮</div>
-
-        <h3>No Joined Matches</h3>
-
-        <p style="margin-top:8px">
-          Join a tournament and your matches will appear here.
-        </p>
-
-        <button class="primary-btn"
-                style="margin-top:18px"
-                onclick="openPage('matches')">
-          FIND MATCH
-        </button>
-
-      </div>
-
-    `;
-
-    return;
-  }
-
-
-  container.innerHTML =
-    joinedMatches
-      .map(item => {
-
-        const m = item.match;
-
-        return `
-
-        <div class="match">
-
-          <div class="game">
-            ${m.name}
-          </div>
-
-          <h3 style="margin-top:8px">
-            ${m.title}
-          </h3>
-
-          <div class="match-time">
-            🕒 ${m.time}
-          </div>
-
-          <div style="
-            margin-top:12px;
-            padding:12px;
-            border-radius:12px;
-            background:#f0e3f5;
-          ">
-
-            <b>Player:</b> ${item.playerName}
-            <br>
-
-            <b>User ID:</b> ${item.playerId}
-
-          </div>
-
-        </div>
-
-        `;
-
-      })
-      .join("");
-
-}
-
-
-/* =====================================================
-   MODAL CLOSE
-===================================================== */
-
-function closeModal(id){
-
-  const modal =
-    document.getElementById(id);
-
-  if(modal){
-    modal.classList.remove("show");
-  }
-
-}
-
-
-/* =====================================================
-   RESULT
-===================================================== */
-
-function showResult(id){
-
-  alert(
-    "Match #" + id +
-    " result section will be connected later."
-  );
-
-}
-
-
-/* =====================================================
-   NOTIFICATION
-===================================================== */
-
-function showNotification(){
-
-  alert(
-    "🔔 TRUSTED OP Notifications\\n\\n" +
-    "No new notifications."
-  );
-
-}
-
-
-/* =====================================================
-   PROFILE MESSAGE
-===================================================== */
-
-function simpleMessage(title){
-
-  alert(
-    title +
-    "\\n\\nThis section is ready for backend connection."
-  );
-
-}
-
-
-/* =====================================================
-   WALLET HISTORY
-===================================================== */
-
-function openWalletHistory(){
-
-  openPage("wallet");
-
-  setTimeout(() => {
-
-    document
-      .getElementById("transactions")
-      .scrollIntoView({
-        behavior:"smooth"
-      });
-
-  },100);
-
-}
-
-
-/* =====================================================
-   TRANSACTIONS
-===================================================== */
-
-const transactions = [
+let transactionList = [
 
   {
     type:"game-entry",
@@ -447,14 +150,949 @@ const transactions = [
 ];
 
 
+/* =====================================================
+   DATE
+===================================================== */
+
+function getCurrentDate(){
+
+  const now = new Date();
+
+  const day =
+    String(now.getDate()).padStart(2,"0");
+
+  const month =
+    String(now.getMonth()+1).padStart(2,"0");
+
+  const year =
+    now.getFullYear();
+
+  let hours = now.getHours();
+
+  const minutes =
+    String(now.getMinutes()).padStart(2,"0");
+
+  const ampm =
+    hours >= 12 ? "PM" : "AM";
+
+  hours =
+    hours % 12 || 12;
+
+  return `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
+
+}
+
+
+/* =====================================================
+   WALLET UPDATE
+===================================================== */
+
+function getTotalBalance(){
+
+  return Number(wallet.deposit)
+       + Number(wallet.winnings)
+       + Number(wallet.bonus);
+
+}
+
+
+function updateWalletUI(){
+
+  const total = getTotalBalance();
+
+  const topBalance =
+    document.getElementById("topBalance");
+
+  if(topBalance){
+    topBalance.innerText = total;
+  }
+
+
+  const walletPage =
+    document.getElementById("wallet");
+
+  if(walletPage){
+
+    const stats =
+      walletPage.querySelectorAll(".wallet-stat strong");
+
+    if(stats.length >= 3){
+
+      stats[0].innerText = wallet.deposit;
+      stats[1].innerText = wallet.winnings;
+      stats[2].innerText = wallet.bonus;
+
+    }
+
+
+    const totalBox =
+      walletPage.querySelector(".total strong");
+
+    if(totalBox){
+      totalBox.innerText = "₹" + total;
+    }
+
+  }
+
+}
+
+
+/* =====================================================
+   MATCH CARD
+===================================================== */
+
+function createMatchCard(match){
+
+  let statusText = "● UPCOMING";
+  let statusClass = "upcoming";
+
+  if(match.status === "ongoing"){
+
+    statusText = "● ONGOING";
+    statusClass = "ongoing";
+
+  }
+
+  if(match.status === "result"){
+
+    statusText = "● RESULT";
+    statusClass = "result";
+
+  }
+
+
+  const joined =
+    joinedMatches.some(
+      item => item.match.id === match.id
+    );
+
+
+  let buttonText = "JOIN";
+
+  if(match.status === "ongoing"){
+    buttonText = "VIEW";
+  }
+
+  if(joined){
+    buttonText = "JOINED";
+  }
+
+
+  return `
+
+  <div class="match">
+
+    <div class="match-top">
+
+      <div class="game">
+        ${match.name}
+      </div>
+
+      <div class="status ${statusClass}">
+        ${statusText}
+      </div>
+
+    </div>
+
+
+    <h3>${match.title}</h3>
+
+
+    <div class="match-time">
+      🕒 ${match.time}
+    </div>
+
+
+    <div class="info">
+
+      <div class="info-box">
+        <div class="info-title">🏆 Prize pool</div>
+        <div class="info-value">${match.prize}</div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-title">🎯 Per Kill</div>
+        <div class="info-value">${match.kill}</div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-title">💰 Entry Fee</div>
+        <div class="info-value">${match.entry}</div>
+      </div>
+
+    </div>
+
+
+    <div class="info">
+
+      <div class="info-box">
+        <div class="info-title">Type</div>
+        <div class="info-value">${match.type}</div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-title">Version</div>
+        <div class="info-value">${match.version}</div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-title">Map</div>
+        <div class="info-value">${match.map}</div>
+      </div>
+
+    </div>
+
+
+    ${
+      match.status === "result"
+
+      ?
+
+      `<button class="join"
+          onclick="showResult('${match.id}')">
+          VIEW RESULT
+       </button>`
+
+      :
+
+      `<button class="join"
+          onclick="openMatch('${match.id}')">
+          ${buttonText}
+       </button>`
+    }
+
+  </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   LOAD HOME
+===================================================== */
+
+function loadHomeMatches(){
+
+  const container =
+    document.getElementById("homeMatches");
+
+  if(!container) return;
+
+
+  const upcoming =
+    matches
+      .filter(m => m.status === "upcoming")
+      .slice(0,2);
+
+
+  if(upcoming.length === 0){
+
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">🎮</div>
+        <h3>No Upcoming Matches</h3>
+        <p style="margin-top:8px">
+          New matches will appear here.
+        </p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    upcoming
+      .map(createMatchCard)
+      .join("");
+
+}
+
+
+/* =====================================================
+   FILTER MATCHES
+===================================================== */
+
+function filterMatches(type,button){
+
+  document
+    .querySelectorAll(".tab")
+    .forEach(tab =>
+      tab.classList.remove("active")
+    );
+
+
+  if(button){
+    button.classList.add("active");
+  }
+
+
+  const container =
+    document.getElementById("matchesList");
+
+  if(!container) return;
+
+
+  const filtered =
+    matches.filter(m => m.status === type);
+
+
+  if(filtered.length === 0){
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">🎮</div>
+
+        <h3>No Matches Found</h3>
+
+        <p style="margin-top:8px">
+          New matches will appear here.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    filtered
+      .map(createMatchCard)
+      .join("");
+
+}
+
+
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+function openPage(page){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(p =>
+      p.classList.remove("active")
+    );
+
+
+  const target =
+    document.getElementById(page);
+
+
+  if(!target) return;
+
+
+  target.classList.add("active");
+
+
+  document
+    .querySelectorAll(".nav")
+    .forEach(n =>
+      n.classList.remove("active")
+    );
+
+
+  const nav =
+    document.querySelectorAll(".nav");
+
+
+  if(page === "home" && nav[0])
+    nav[0].classList.add("active");
+
+
+  if(page === "matches" && nav[1])
+    nav[1].classList.add("active");
+
+
+  if(page === "myMatches" && nav[2])
+    nav[2].classList.add("active");
+
+
+  if(page === "profile" && nav[3])
+    nav[3].classList.add("active");
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"instant"
+  });
+
+
+  if(page === "matches"){
+
+    filterMatches(
+      "ongoing",
+      document.querySelectorAll(".tab")[0]
+    );
+
+  }
+
+
+  if(page === "myMatches"){
+
+    renderMyMatches();
+
+  }
+
+
+  if(page === "wallet"){
+
+    updateWalletUI();
+    loadTransactions();
+
+  }
+
+}
+
+
+/* =====================================================
+   OPEN MATCH
+===================================================== */
+
+function openMatch(id){
+
+  const match =
+    matches.find(m => m.id === id);
+
+
+  if(!match) return;
+
+
+  selectedMatch = match;
+
+
+  if(joinedMatches.some(item => item.match.id === id)){
+
+    alert(
+      "You have already joined this match."
+    );
+
+    return;
+
+  }
+
+
+  document.getElementById("modalTitle")
+    .innerText = match.name;
+
+
+  document.getElementById("modalId")
+    .innerText = match.title;
+
+
+  document.getElementById("modalPrize")
+    .innerText = match.prize;
+
+
+  document.getElementById("modalKill")
+    .innerText = match.kill;
+
+
+  document.getElementById("modalEntry")
+    .innerText = match.entry;
+
+
+  document.getElementById("modalType")
+    .innerText = match.type;
+
+
+  document.getElementById("modalMap")
+    .innerText = match.map;
+
+
+  document
+    .getElementById("matchModal")
+    .classList.add("show");
+
+}
+
+
+/* =====================================================
+   START JOIN
+===================================================== */
+
+function startJoin(){
+
+  if(!selectedMatch) return;
+
+
+  const entry =
+    Number(
+      selectedMatch.entry
+        .replace("₹","")
+        .trim()
+    );
+
+
+  const balance =
+    getTotalBalance();
+
+
+  if(balance < entry){
+
+    closeModal("matchModal");
+
+
+    alert(
+      "Insufficient wallet balance.\n\n" +
+      "Entry Fee: ₹" + entry +
+      "\nYour Balance: ₹" + balance
+    );
+
+
+    return;
+
+  }
+
+
+  document
+    .getElementById("matchModal")
+    .classList.remove("show");
+
+
+  document
+    .getElementById("deductAmount")
+    .innerText = entry;
+
+
+  document
+    .getElementById("confirmModal")
+    .classList.add("show");
+
+}
+
+
+/* =====================================================
+   OPEN USER FORM
+===================================================== */
+
+function openJoinForm(){
+
+  document
+    .getElementById("confirmModal")
+    .classList.remove("show");
+
+
+  document
+    .getElementById("joinFormModal")
+    .classList.add("show");
+
+}
+
+
+/* =====================================================
+   SUBMIT JOIN
+===================================================== */
+
+function submitJoin(){
+
+  const name =
+    document
+      .getElementById("playerName")
+      .value
+      .trim();
+
+
+  const id =
+    document
+      .getElementById("playerId")
+      .value
+      .trim();
+
+
+  if(!name){
+
+    alert(
+      "Please enter your Free Fire user name."
+    );
+
+    return;
+
+  }
+
+
+  if(!id){
+
+    alert(
+      "Please enter your Free Fire user ID."
+    );
+
+    return;
+
+  }
+
+
+  if(!selectedMatch) return;
+
+
+  const entry =
+    Number(
+      selectedMatch.entry
+        .replace("₹","")
+        .trim()
+    );
+
+
+  if(getTotalBalance() < entry){
+
+    closeModal("joinFormModal");
+
+    alert("Insufficient wallet balance.");
+
+    return;
+
+  }
+
+
+  /*
+     ENTRY FEE IS DEDUCTED FROM WINNINGS
+     FIRST.
+  */
+
+  let remaining = entry;
+
+
+  if(wallet.winnings >= remaining){
+
+    wallet.winnings -= remaining;
+
+    remaining = 0;
+
+  }else{
+
+    remaining -= wallet.winnings;
+
+    wallet.winnings = 0;
+
+  }
+
+
+  if(remaining > 0){
+
+    if(wallet.deposit >= remaining){
+
+      wallet.deposit -= remaining;
+
+      remaining = 0;
+
+    }else{
+
+      remaining -= wallet.deposit;
+
+      wallet.deposit = 0;
+
+    }
+
+  }
+
+
+  joinedMatches.push({
+
+    match:selectedMatch,
+
+    playerName:name,
+
+    playerId:id,
+
+    joinedAt:getCurrentDate()
+
+  });
+
+
+  transactionList.unshift({
+
+    type:"game-entry",
+
+    title:selectedMatch.title,
+
+    date:getCurrentDate(),
+
+    status:"completed",
+
+    amount:"₹" + entry
+
+  });
+
+
+  closeModal("joinFormModal");
+
+
+  document.getElementById("playerName").value = "";
+
+  document.getElementById("playerId").value = "";
+
+
+  updateWalletUI();
+
+  loadTransactions();
+
+  loadHomeMatches();
+
+  filterMatches(
+    "ongoing",
+    document.querySelectorAll(".tab")[0]
+  );
+
+
+  alert(
+    "Join request submitted successfully!\n\n" +
+    "Match: " + selectedMatch.title +
+    "\nEntry Fee: ₹" + entry
+  );
+
+
+  renderMyMatches();
+
+}
+
+
+/* =====================================================
+   MY MATCHES
+===================================================== */
+
+function renderMyMatches(){
+
+  const container =
+    document.getElementById("myMatchesList");
+
+
+  if(!container) return;
+
+
+  if(joinedMatches.length === 0){
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">🎮</div>
+
+        <h3>No Joined Matches</h3>
+
+        <p style="margin-top:8px">
+          Join a tournament and your matches
+          will appear here.
+        </p>
+
+        <button class="primary-btn"
+                style="margin-top:18px"
+                onclick="openPage('matches')">
+          FIND MATCH
+        </button>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    joinedMatches
+      .map(item => {
+
+        const m = item.match;
+
+
+        return `
+
+        <div class="match">
+
+          <div class="match-top">
+
+            <div class="game">
+              ${m.name}
+            </div>
+
+            <div class="status ongoing">
+              ● JOINED
+            </div>
+
+          </div>
+
+
+          <h3 style="margin-top:8px">
+            ${m.title}
+          </h3>
+
+
+          <div class="match-time">
+            🕒 ${m.time}
+          </div>
+
+
+          <div style="
+            margin-top:12px;
+            padding:12px;
+            border-radius:12px;
+            background:#f0e3f5;
+          ">
+
+            <b>Player:</b> ${item.playerName}
+            <br>
+
+            <b>User ID:</b> ${item.playerId}
+            <br>
+
+            <b>Joined:</b> ${item.joinedAt}
+
+          </div>
+
+        </div>
+
+        `;
+
+      })
+      .join("");
+
+}
+
+
+/* =====================================================
+   MODAL CLOSE
+===================================================== */
+
+function closeModal(id){
+
+  const modal =
+    document.getElementById(id);
+
+
+  if(modal){
+
+    modal.classList.remove("show");
+
+  }
+
+}
+
+
+/* =====================================================
+   RESULT
+===================================================== */
+
+function showResult(id){
+
+  const match =
+    matches.find(m => m.id === id);
+
+
+  if(!match) return;
+
+
+  alert(
+    "🏆 MATCH RESULT\n\n" +
+    match.title +
+    "\n\nResult will be available here."
+  );
+
+}
+
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+function showNotification(){
+
+  alert(
+    "🔔 TRUSTED OP Notifications\n\n" +
+    "No new notifications."
+  );
+
+}
+
+
+/* =====================================================
+   PROFILE MESSAGE
+===================================================== */
+
+function simpleMessage(title){
+
+  alert(
+    title +
+    "\n\nThis section is ready for backend connection."
+  );
+
+}
+
+
+/* =====================================================
+   WALLET HISTORY
+===================================================== */
+
+function openWalletHistory(){
+
+  openPage("wallet");
+
+
+  setTimeout(() => {
+
+    const transactions =
+      document.getElementById("transactions");
+
+
+    if(transactions){
+
+      transactions.scrollIntoView({
+        behavior:"smooth"
+      });
+
+    }
+
+  },150);
+
+}
+
+
+/* =====================================================
+   TRANSACTIONS
+===================================================== */
+
 function loadTransactions(){
 
   const container =
     document.getElementById("transactions");
 
 
+  if(!container) return;
+
+
+  if(transactionList.length === 0){
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <div class="empty-icon">💳</div>
+
+        <h3>No Transactions</h3>
+
+        <p style="margin-top:8px">
+          Your wallet transactions will appear here.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
   container.innerHTML =
-    transactions
+    transactionList
       .map((tx,index) => {
 
         return `
@@ -486,7 +1124,9 @@ function loadTransactions(){
           <div style="text-align:right">
 
             <div class="tx-status
-              ${tx.status === "rejected" ? "rejected" : ""}">
+              ${tx.status === "rejected"
+                ? "rejected"
+                : ""}">
               ${tx.status}
             </div>
 
@@ -507,96 +1147,428 @@ function loadTransactions(){
 
 
 /* =====================================================
-   DEPOSIT UI ONLY
+   DEPOSIT
 ===================================================== */
 
 function setDeposit(amount){
 
-  document.getElementById("depositAmount")
-    .value = amount;
+  const input =
+    document.getElementById("depositAmount");
+
+
+  if(input){
+
+    input.value = amount;
+
+  }
 
 }
 
 
 function depositDemo(){
 
+  const input =
+    document.getElementById("depositAmount");
+
+
   const amount =
-    document.getElementById("depositAmount")
-      .value;
+    Number(input.value);
 
 
-  if(!amount || Number(amount) <= 0){
+  if(!amount || amount <= 0){
 
-    alert("Please enter a valid amount.");
+    alert(
+      "Please enter a valid amount."
+    );
 
     return;
+
   }
 
 
+  if(amount < 20){
+
+    alert(
+      "Minimum deposit amount is ₹20."
+    );
+
+    return;
+
+  }
+
+
+  /*
+     REAL PAYMENT IS NOT CONNECTED.
+     DO NOT ADD MONEY AUTOMATICALLY.
+  */
+
   alert(
-    "Deposit system is not connected yet.\\n\\n" +
-    "Selected amount: ₹" + amount
+    "Deposit system is not connected yet.\n\n" +
+    "Selected amount: ₹" + amount +
+    "\n\nConnect your payment gateway/backend here."
   );
 
 }
 
 
 /* =====================================================
-   WITHDRAW UI ONLY
+   WITHDRAW AMOUNT
 ===================================================== */
 
 function setWithdraw(amount){
 
-  document.getElementById("withdrawAmount")
-    .value = amount;
+  const input =
+    document.getElementById("withdrawAmount");
+
+
+  if(input){
+
+    input.value = amount;
+
+  }
 
 }
 
 
+/* =====================================================
+   LOCATION PERMISSION
+===================================================== */
+
+function requestLocationPermission(callback){
+
+  if(!navigator.geolocation){
+
+    alert(
+      "Location permission is not supported on this device."
+    );
+
+    return;
+
+  }
+
+
+  navigator.geolocation.getCurrentPosition(
+
+    function(position){
+
+      /*
+         Permission granted.
+         Location is intentionally not sent anywhere
+         in this frontend-only version.
+      */
+
+      if(typeof callback === "function"){
+
+        callback(position);
+
+      }
+
+    },
+
+    function(error){
+
+      if(error.code === 1){
+
+        alert(
+          "Location permission is required before withdrawal."
+        );
+
+      }else{
+
+        alert(
+          "Unable to get your location. Please try again."
+        );
+
+      }
+
+    },
+
+    {
+      enableHighAccuracy:false,
+      timeout:10000,
+      maximumAge:60000
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   WITHDRAW
+===================================================== */
+
 function withdrawDemo(){
 
   const upi =
-    document.getElementById("upi").value.trim();
+    document
+      .getElementById("upi")
+      .value
+      .trim();
+
 
   const holder =
-    document.getElementById("holder").value.trim();
+    document
+      .getElementById("holder")
+      .value
+      .trim();
+
 
   const amount =
-    document.getElementById("withdrawAmount").value;
+    Number(
+      document
+        .getElementById("withdrawAmount")
+        .value
+    );
 
 
   if(!upi){
 
-    alert("Please enter your UPI ID.");
+    alert(
+      "Please enter your UPI ID."
+    );
 
     return;
+
   }
 
 
   if(!holder){
 
-    alert("Please enter account holder name.");
+    alert(
+      "Please enter account holder name."
+    );
 
     return;
+
   }
 
 
-  if(!amount){
+  if(!amount || amount <= 0){
 
-    alert("Please select withdrawal amount.");
+    alert(
+      "Please select a valid withdrawal amount."
+    );
 
     return;
+
   }
 
 
-  alert(
-    "Withdrawal system is not connected yet.\\n\\n" +
-    "Selected amount: ₹" + amount
-  );
+  if(amount < 30){
+
+    alert(
+      "Minimum withdrawal amount is ₹30."
+    );
+
+    return;
+
+  }
+
+
+  if(amount > wallet.winnings){
+
+    alert(
+      "You can withdraw only from winnings.\n\n" +
+      "Available winnings: ₹" +
+      wallet.winnings
+    );
+
+    return;
+
+  }
+
+
+  /*
+     Ask for location permission before
+     proceeding with withdrawal request.
+  */
+
+  requestLocationPermission(function(){
+
+    /*
+       Frontend demo:
+       Money is NOT actually transferred.
+    */
+
+    withdrawalRequests.unshift({
+
+      upi:upi,
+
+      holder:holder,
+
+      amount:amount,
+
+      date:getCurrentDate(),
+
+      status:"pending"
+
+    });
+
+
+    transactionList.unshift({
+
+      type:"withdraw",
+
+      title:"Withdrawal Request",
+
+      date:getCurrentDate(),
+
+      status:"pending",
+
+      amount:"₹" + amount
+
+    });
+
+
+    /*
+       Don't deduct real winnings here because
+       this frontend does not have a secure backend.
+    */
+
+
+    loadTransactions();
+
+
+    alert(
+      "Withdrawal request submitted.\n\n" +
+      "Amount: ₹" + amount +
+      "\nUPI: " + upi +
+      "\nStatus: Pending"
+    );
+
+
+    document.getElementById("upi").value = "";
+
+    document.getElementById("holder").value = "";
+
+    document.getElementById("withdrawAmount").value = "";
+
+  });
 
 }
 
 
 /* =====================================================
-   START
-=============================
+   WITHDRAWAL LIST
+===================================================== */
+
+function showWithdrawalList(){
+
+  if(withdrawalRequests.length === 0){
+
+    alert(
+      "Withdrawal List\n\n" +
+      "No withdrawal requests found."
+    );
+
+    return;
+
+  }
+
+
+  let text =
+    "WITHDRAWAL LIST\n\n";
+
+
+  withdrawalRequests.forEach(
+    (item,index) => {
+
+      text +=
+        (index + 1) +
+        ". ₹" + item.amount +
+        "\n" +
+        "UPI: " + item.upi +
+        "\n" +
+        "Status: " + item.status +
+        "\n" +
+        item.date +
+        "\n\n";
+
+    }
+  );
+
+
+  alert(text);
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL ON OUTSIDE CLICK
+===================================================== */
+
+document
+  .querySelectorAll(".modal")
+  .forEach(modal => {
+
+    modal.addEventListener(
+      "click",
+      function(event){
+
+        if(event.target === modal){
+
+          modal.classList.remove("show");
+
+        }
+
+      }
+    );
+
+  });
+
+
+/* =====================================================
+   ESC KEY CLOSE
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Escape"){
+
+      document
+        .querySelectorAll(".modal.show")
+        .forEach(modal =>
+          modal.classList.remove("show")
+        );
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   START APP
+===================================================== */
+
+loadHomeMatches();
+
+loadTransactions();
+
+updateWalletUI();
+
+filterMatches(
+  "ongoing",
+  document.querySelectorAll(".tab")[0]
+);
+
+
+/* =====================================================
+   FIX WITHDRAWAL LIST BUTTON
+===================================================== */
+
+const withdrawalButton =
+  document.querySelector(".withdraw-list-btn");
+
+
+if(withdrawalButton){
+
+  withdrawalButton.onclick =
+    showWithdrawalList;
+
+}
+
+</script>
