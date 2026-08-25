@@ -1,1574 +1,1347 @@
-<script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TRUSTED OP - Free Fire Tournament</title>
 
-/* =====================================================
-   MATCH DATA
-===================================================== */
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Arial,sans-serif;
+  background:linear-gradient(180deg,#190021,#420064,#16001d);
+  color:#fff;
+  min-height:100vh;
+  padding-bottom:78px
+}
+button{font-family:inherit;cursor:pointer}
 
-const matches = [
-
-  {
-    id:"53852",
-    name:"FREE FIRE DUO MATCH",
-    title:"FREE FIRE DUO MATCH #53852",
-    status:"upcoming",
-    time:"2026-08-25 10:15 AM",
-    prize:"₹380",
-    kill:"₹3",
-    entry:"₹5",
-    type:"Duo",
-    version:"TPP",
-    map:"BERMUDA"
-  },
-
-  {
-    id:"53854",
-    name:"FREE FIRE SQUAD MATCH",
-    title:"FREE FIRE SQUAD MATCH #53854",
-    status:"upcoming",
-    time:"2026-08-25 10:45 AM",
-    prize:"₹380",
-    kill:"₹7",
-    entry:"₹8",
-    type:"Squad",
-    version:"TPP",
-    map:"BERMUDA"
-  },
-
-  {
-    id:"53855",
-    name:"FREE FIRE SOLO MATCH",
-    title:"FREE FIRE SOLO MATCH #53855",
-    status:"ongoing",
-    time:"Live Now",
-    prize:"₹500",
-    kill:"₹5",
-    entry:"₹10",
-    type:"Solo",
-    version:"TPP",
-    map:"BERMUDA"
-  },
-
-  {
-    id:"53840",
-    name:"FREE FIRE DUO MATCH",
-    title:"FREE FIRE DUO MATCH #53840",
-    status:"result",
-    time:"Completed",
-    prize:"₹380",
-    kill:"₹3",
-    entry:"₹5",
-    type:"Duo",
-    version:"TPP",
-    map:"BERMUDA"
-  }
-
-];
-
-
-/* =====================================================
-   WALLET DATA
-===================================================== */
-
-let wallet = {
-  deposit: 0,
-  winnings: 187,
-  bonus: 0
-};
-
-let selectedMatch = null;
-
-let joinedMatches = [];
-
-let withdrawalRequests = [];
-
-let transactionList = [
-
-  {
-    type:"game-entry",
-    title:"FF SQUAD MATCH - PC",
-    date:"25/08/2026 09:33 AM",
-    status:"completed",
-    amount:"₹5"
-  },
-
-  {
-    type:"game-entry",
-    title:"FF SQUAD MATCH - PC",
-    date:"25/08/2026 09:32 AM",
-    status:"completed",
-    amount:"₹5"
-  },
-
-  {
-    type:"withdraw",
-    title:"withdraw",
-    date:"25/08/2026 01:13 AM",
-    status:"rejected",
-    amount:"₹90"
-  },
-
-  {
-    type:"withdraw",
-    title:"withdraw",
-    date:"25/08/2026 01:02 AM",
-    status:"rejected",
-    amount:"₹150"
-  },
-
-  {
-    type:"game-entry",
-    title:"FF SOLO MATCH - POV",
-    date:"24/08/2026 10:22 PM",
-    status:"completed",
-    amount:"₹6"
-  },
-
-  {
-    type:"game-entry",
-    title:"FF DUO MATCH - POV",
-    date:"24/08/2026 10:13 PM",
-    status:"completed",
-    amount:"₹8"
-  },
-
-  {
-    type:"game-entry",
-    title:"FF DUO MATCH - POV",
-    date:"24/08/2026 09:41 PM",
-    status:"completed",
-    amount:"₹15"
-  },
-
-  {
-    type:"game-entry",
-    title:"FF DUO MATCH - POV",
-    date:"24/08/2026 09:40 PM",
-    status:"completed",
-    amount:"₹6"
-  }
-
-];
-
-
-/* =====================================================
-   DATE
-===================================================== */
-
-function getCurrentDate(){
-
-  const now = new Date();
-
-  const day =
-    String(now.getDate()).padStart(2,"0");
-
-  const month =
-    String(now.getMonth()+1).padStart(2,"0");
-
-  const year =
-    now.getFullYear();
-
-  let hours = now.getHours();
-
-  const minutes =
-    String(now.getMinutes()).padStart(2,"0");
-
-  const ampm =
-    hours >= 12 ? "PM" : "AM";
-
-  hours =
-    hours % 12 || 12;
-
-  return `${day}/${month}/${year} ${hours}:${minutes} ${ampm}`;
-
+.header{
+  height:72px;
+  padding:0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between
+}
+.logo{
+  font-size:25px;
+  font-weight:bold;
+  letter-spacing:1px
+}
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:8px
+}
+.balance{
+  padding:9px 14px;
+  border:1px solid #8038a1;
+  border-radius:25px;
+  background:#171334
+}
+.bell{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:1px solid #8d28b9;
+  background:#4a0870;
+  color:white;
+  font-size:20px
 }
 
+.page{display:none}
+.page.active{display:block}
 
-/* =====================================================
-   WALLET UPDATE
-===================================================== */
-
-function getTotalBalance(){
-
-  return Number(wallet.deposit)
-       + Number(wallet.winnings)
-       + Number(wallet.bonus);
-
+.banner{
+  margin:15px 18px 25px;
+  padding:27px 20px;
+  min-height:190px;
+  border-radius:25px;
+  background:linear-gradient(135deg,#7410a5,#d20de5);
+  box-shadow:0 0 30px #c20fe355
+}
+.banner h1{
+  font-size:27px;
+  margin-bottom:14px
+}
+.banner p{
+  font-size:16px;
+  color:#eee;
+  margin-bottom:22px
 }
 
-
-function updateWalletUI(){
-
-  const total = getTotalBalance();
-
-  const topBalance =
-    document.getElementById("topBalance");
-
-  if(topBalance){
-    topBalance.innerText = total;
-  }
-
-
-  const walletPage =
-    document.getElementById("wallet");
-
-  if(walletPage){
-
-    const stats =
-      walletPage.querySelectorAll(".wallet-stat strong");
-
-    if(stats.length >= 3){
-
-      stats[0].innerText = wallet.deposit;
-      stats[1].innerText = wallet.winnings;
-      stats[2].innerText = wallet.bonus;
-
-    }
-
-
-    const totalBox =
-      walletPage.querySelector(".total strong");
-
-    if(totalBox){
-      totalBox.innerText = "₹" + total;
-    }
-
-  }
-
+.btn{
+  border:0;
+  padding:13px 23px;
+  border-radius:25px;
+  color:white;
+  font-weight:bold;
+  background:linear-gradient(90deg,#6510b2,#cf12e4)
 }
 
+.section-title{
+  margin:20px 18px 14px;
+  font-size:23px
+}
 
-/* =====================================================
-   MATCH CARD
-===================================================== */
+.quick{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:0 18px 25px
+}
+.quick-card{
+  min-height:100px;
+  border:1px solid #74328c;
+  border-radius:17px;
+  background:#ffffff0d;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center
+}
+.quick-card span{
+  font-size:29px;
+  margin-bottom:8px
+}
+.quick-card small{color:#ddd}
 
-function createMatchCard(match){
+.match{
+  margin:15px 18px;
+  padding:16px;
+  border-radius:20px;
+  background:#fff;
+  color:#17001e
+}
+.match-head{
+  display:flex;
+  justify-content:space-between;
+  gap:8px
+}
+.game{
+  color:#7611a5;
+  font-weight:bold;
+  font-size:14px
+}
+.status{
+  font-size:11px;
+  font-weight:bold
+}
+.upcoming{color:red}
+.live{color:green}
 
-  let statusText = "● UPCOMING";
-  let statusClass = "upcoming";
+.match h3{
+  font-size:18px;
+  margin:10px 0
+}
+.time{
+  color:#777;
+  font-size:12px;
+  margin-bottom:12px
+}
 
-  if(match.status === "ongoing"){
+.info{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin-bottom:9px
+}
+.info-box{text-align:center}
+.info-title{
+  padding:9px 2px;
+  border-radius:11px;
+  background:linear-gradient(90deg,#7411a9,#9c12c7);
+  color:#fff;
+  font-size:11px
+}
+.info-value{
+  padding:7px 2px;
+  font-weight:bold;
+  font-size:14px
+}
 
-    statusText = "● ONGOING";
-    statusClass = "ongoing";
+.join{
+  width:100%;
+  border:0;
+  padding:13px;
+  border-radius:13px;
+  color:white;
+  font-weight:bold;
+  background:linear-gradient(90deg,#6410a9,#c112df)
+}
 
-  }
+.tabs{
+  display:flex;
+  margin:15px 18px;
+  padding:4px;
+  border-radius:30px;
+  background:#170728
+}
+.tab{
+  flex:1;
+  border:0;
+  padding:11px 5px;
+  border-radius:25px;
+  background:transparent;
+  color:#aaa
+}
+.tab.active{
+  background:linear-gradient(90deg,#7110ac,#a914d1);
+  color:#fff
+}
 
-  if(match.status === "result"){
+.profile{
+  margin:20px 18px;
+  padding:30px 15px;
+  text-align:center;
+  border-radius:22px;
+  background:#ffffff0b;
+  border:1px solid #72268d
+}
+.avatar{
+  width:80px;
+  height:80px;
+  margin:auto;
+  border-radius:50%;
+  background:white;
+  color:#500080;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:42px
+}
+.profile h2{margin-top:13px}
+.profile p{color:#bbb;margin-top:6px}
 
-    statusText = "● RESULT";
-    statusClass = "result";
+.menu{
+  margin:15px 18px
+}
+.menu button{
+  width:100%;
+  margin-bottom:10px;
+  padding:16px;
+  border:1px solid #6f268a;
+  border-radius:14px;
+  background:#ffffff0b;
+  color:#fff;
+  text-align:left;
+  font-size:15px
+}
 
-  }
+.wallet{
+  margin:20px 18px;
+  padding:25px;
+  border-radius:22px;
+  text-align:center;
+  background:#ffffff0b;
+  border:1px solid #6d2988
+}
+.wallet h1{
+  margin:12px 0 20px
+}
+.wallet-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px
+}
+
+.form{
+  margin:20px 18px
+}
+label{
+  display:block;
+  margin:18px 5px 8px
+}
+input{
+  width:100%;
+  height:55px;
+  border:1px solid #7b4b8b;
+  border-radius:13px;
+  background:transparent;
+  color:white;
+  padding:0 15px;
+  font-size:15px
+}
+input::placeholder{color:#aaa}
+
+.amounts{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-top:15px
+}
+.amounts button{
+  padding:13px 3px;
+  border:1px solid #603c70;
+  border-radius:12px;
+  background:#171536;
+  color:white
+}
+
+.empty{
+  margin:25px 18px;
+  padding:35px 20px;
+  text-align:center;
+  background:#ffffff0b;
+  border-radius:18px;
+  color:#bbb
+}
+.empty div{font-size:45px;margin-bottom:10px}
+
+.bottom{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:78px;
+  z-index:100;
+  display:flex;
+  background:#050505;
+  border-top:1px solid #51215e
+}
+.nav{
+  flex:1;
+  border:0;
+  background:transparent;
+  color:#aaa;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center
+}
+.nav span{font-size:25px}
+.nav small{font-size:10px;margin-top:3px}
+.nav.active{color:#dc36ff}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:500;
+  background:#000b;
+  align-items:center;
+  justify-content:center;
+  padding:18px
+}
+.modal.show{display:flex}
+
+.modal-box{
+  width:100%;
+  max-width:430px;
+  background:white;
+  color:#18001d;
+  border-radius:20px;
+  padding:22px;
+  position:relative
+}
+.close{
+  position:absolute;
+  right:12px;
+  top:12px;
+  border:0;
+  width:32px;
+  height:32px;
+  border-radius:50%
+}
+.modal-box h2{
+  color:#7210a3;
+  margin-bottom:10px
+}
+.row{
+  display:flex;
+  justify-content:space-between;
+  padding:13px 0;
+  border-bottom:1px solid #ddd
+}
+.row strong{color:#7110a3}
+
+.confirm{
+  width:100%;
+  max-width:420px;
+  padding:28px 20px;
+  border-radius:22px;
+  text-align:center;
+  background:linear-gradient(145deg,#350080,#6100a0)
+}
+.confirm h2{margin-bottom:15px}
+.confirm p{
+  color:#ddd;
+  line-height:1.5;
+  margin-bottom:20px
+}
+.confirm-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px
+}
+.confirm-buttons button{
+  height:45px;
+  border:0;
+  border-radius:25px
+}
+
+.join-form{
+  width:100%;
+  max-width:430px;
+  padding:25px;
+  border-radius:22px;
+  background:linear-gradient(145deg,#350080,#6100a0)
+}
+.join-form h2{text-align:center;margin-bottom:20px}
+.join-field{
+  padding:13px;
+  margin-bottom:12px;
+  border-radius:13px;
+  background:#22004e
+}
+.join-field label{
+  margin:0 0 8px;
+  font-size:14px
+}
+.join-field input{
+  height:40px;
+  border:0;
+  padding:0
+}
+
+@media(max-width:380px){
+  .logo{font-size:21px}
+  .banner h1{font-size:24px}
+  .info-title{font-size:9px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="logo">TRUSTED OP</div>
+
+  <div class="header-right">
+    <div class="balance">👑 ₹<span id="balance">187</span></div>
+    <button class="bell" onclick="notification()">🔔</button>
+  </div>
+</header>
 
 
-  const joined =
-    joinedMatches.some(
-      item => item.match.id === match.id
-    );
+<!-- HOME -->
+<section id="home" class="page active">
 
+  <div class="banner">
+    <h1>🔥 FREE FIRE TOURNAMENT</h1>
+    <p>Play matches • Win prizes • Compete with players</p>
+    <button class="btn" onclick="openPage('matches')">
+      VIEW MATCHES
+    </button>
+  </div>
 
-  let buttonText = "JOIN";
+  <h2 class="section-title">🏆 Tournament Zone</h2>
 
-  if(match.status === "ongoing"){
-    buttonText = "VIEW";
-  }
-
-  if(joined){
-    buttonText = "JOINED";
-  }
-
-
-  return `
-
-  <div class="match">
-
-    <div class="match-top">
-
-      <div class="game">
-        ${match.name}
-      </div>
-
-      <div class="status ${statusClass}">
-        ${statusText}
-      </div>
-
+  <div class="quick">
+    <div class="quick-card" onclick="openPage('matches')">
+      <span>🏆</span>
+      <small>Matches</small>
     </div>
 
-
-    <h3>${match.title}</h3>
-
-
-    <div class="match-time">
-      🕒 ${match.time}
+    <div class="quick-card" onclick="openPage('myMatches')">
+      <span>🎟️</span>
+      <small>My Matches</small>
     </div>
 
-
-    <div class="info">
-
-      <div class="info-box">
-        <div class="info-title">🏆 Prize pool</div>
-        <div class="info-value">${match.prize}</div>
-      </div>
-
-      <div class="info-box">
-        <div class="info-title">🎯 Per Kill</div>
-        <div class="info-value">${match.kill}</div>
-      </div>
-
-      <div class="info-box">
-        <div class="info-title">💰 Entry Fee</div>
-        <div class="info-value">${match.entry}</div>
-      </div>
-
+    <div class="quick-card" onclick="openPage('profile')">
+      <span>👤</span>
+      <small>Profile</small>
     </div>
+  </div>
+
+  <h2 class="section-title">🔥 Upcoming Matches</h2>
+
+  <div id="homeMatches"></div>
+
+</section>
 
 
-    <div class="info">
+<!-- MATCHES -->
+<section id="matches" class="page">
 
-      <div class="info-box">
-        <div class="info-title">Type</div>
-        <div class="info-value">${match.type}</div>
-      </div>
+  <h2 class="section-title">🏆 Matches</h2>
 
-      <div class="info-box">
-        <div class="info-title">Version</div>
-        <div class="info-value">${match.version}</div>
-      </div>
+  <div class="tabs">
+    <button class="tab active" onclick="filter('upcoming',this)">
+      Upcoming
+    </button>
 
-      <div class="info-box">
-        <div class="info-title">Map</div>
-        <div class="info-value">${match.map}</div>
-      </div>
+    <button class="tab" onclick="filter('live',this)">
+      Live
+    </button>
 
-    </div>
+    <button class="tab" onclick="filter('result',this)">
+      Results
+    </button>
+  </div>
+
+  <div id="matchesList"></div>
+
+</section>
 
 
-    ${
-      match.status === "result"
+<!-- MY MATCHES -->
+<section id="myMatches" class="page">
 
-      ?
+  <h2 class="section-title">🎟️ My Matches</h2>
 
-      `<button class="join"
-          onclick="showResult('${match.id}')">
-          VIEW RESULT
-       </button>`
+  <div id="myMatchesList"></div>
 
-      :
+</section>
 
-      `<button class="join"
-          onclick="openMatch('${match.id}')">
-          ${buttonText}
-       </button>`
-    }
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+
+  <h2 class="section-title">👤 Profile</h2>
+
+  <div class="profile">
+    <div class="avatar">👤</div>
+    <h2>TRUSTED OP USER</h2>
+    <p>Free Fire Tournament Player</p>
+  </div>
+
+  <div class="menu">
+
+    <button onclick="openPage('wallet')">
+      💰 Wallet
+    </button>
+
+    <button onclick="openPage('deposit')">
+      💳 Deposit
+    </button>
+
+    <button onclick="openPage('withdraw')">
+      🏦 Withdraw
+    </button>
+
+    <button onclick="notification()">
+      🔔 Notifications
+    </button>
+
+    <button onclick="alert('TRUSTED OP\\n\\nFree Fire Tournament App')">
+      ℹ️ About
+    </button>
 
   </div>
 
-  `;
+</section>
+
+
+<!-- WALLET -->
+<section id="wallet" class="page">
+
+  <h2 class="section-title">💰 Wallet</h2>
+
+  <div class="wallet">
+
+    <div>Available Balance</div>
+
+    <h1>₹<span id="walletBalance">187</span></h1>
+
+    <div class="wallet-buttons">
+      <button class="btn" onclick="openPage('deposit')">
+        DEPOSIT
+      </button>
+
+      <button class="btn" onclick="openPage('withdraw')">
+        WITHDRAW
+      </button>
+    </div>
+
+  </div>
+
+  <h2 class="section-title">Transaction History</h2>
+
+  <div id="transactions"></div>
+
+</section>
+
+
+<!-- DEPOSIT -->
+<section id="deposit" class="page">
+
+  <h2 class="section-title">💳 Deposit</h2>
+
+  <div class="form">
+
+    <label>Enter Amount</label>
+
+    <input id="depositAmount"
+           type="number"
+           placeholder="Enter amount">
+
+    <div class="amounts">
+      <button onclick="setDeposit(50)">₹50</button>
+      <button onclick="setDeposit(100)">₹100</button>
+      <button onclick="setDeposit(200)">₹200</button>
+      <button onclick="setDeposit(500)">₹500</button>
+    </div>
+
+    <button
+      class="btn"
+      style="width:100%;margin-top:30px"
+      onclick="deposit()">
+      CONTINUE
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- WITHDRAW -->
+<section id="withdraw" class="page">
+
+  <h2 class="section-title">🏦 Withdraw</h2>
+
+  <div class="form">
+
+    <label>UPI ID</label>
+    <input id="upi" placeholder="example@upi">
+
+    <label>Account Holder Name</label>
+    <input id="holder" placeholder="Enter name">
+
+    <label>Withdraw Amount</label>
+    <input id="withdrawAmount"
+           type="number"
+           placeholder="Enter amount">
+
+    <div class="amounts">
+      <button onclick="setWithdraw(50)">₹50</button>
+      <button onclick="setWithdraw(100)">₹100</button>
+      <button onclick="setWithdraw(200)">₹200</button>
+      <button onclick="setWithdraw(500)">₹500</button>
+    </div>
+
+    <button
+      class="btn"
+      style="width:100%;margin-top:30px"
+      onclick="withdraw()">
+      WITHDRAW
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- BOTTOM NAV -->
+<nav class="bottom">
+
+  <button class="nav active" onclick="openPage('home')">
+    <span>⌂</span>
+    <small>HOME</small>
+  </button>
+
+  <button class="nav" onclick="openPage('matches')">
+    <span>🏆</span>
+    <small>MATCHES</small>
+  </button>
+
+  <button class="nav" onclick="openPage('myMatches')">
+    <span>🎟️</span>
+    <small>MY MATCHES</small>
+  </button>
+
+  <button class="nav" onclick="openPage('profile')">
+    <span>👤</span>
+    <small>PROFILE</small>
+  </button>
+
+</nav>
+
+
+<!-- MATCH MODAL -->
+<div id="matchModal" class="modal">
+
+  <div class="modal-box">
+
+    <button class="close"
+            onclick="closeModal('matchModal')">
+      ✕
+    </button>
+
+    <h2 id="modalTitle">FREE FIRE MATCH</h2>
+
+    <p id="modalId"></p>
+
+    <div class="row">
+      <span>🏆 Prize Pool</span>
+      <strong id="modalPrize"></strong>
+    </div>
+
+    <div class="row">
+      <span>🎯 Per Kill</span>
+      <strong id="modalKill"></strong>
+    </div>
+
+    <div class="row">
+      <span>💰 Entry Fee</span>
+      <strong id="modalEntry"></strong>
+    </div>
+
+    <div class="row">
+      <span>🎮 Type</span>
+      <strong id="modalType"></strong>
+    </div>
+
+    <div class="row">
+      <span>🗺️ Map</span>
+      <strong id="modalMap"></strong>
+    </div>
+
+    <button class="join"
+            style="margin-top:18px"
+            onclick="startJoin()">
+      JOIN MATCH
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- CONFIRM -->
+<div id="confirmModal" class="modal">
+
+  <div class="confirm">
+
+    <h2>
+      ₹<span id="deduct">0</span>
+      will be deducted
+    </h2>
+
+    <p>
+      Are you sure you want to join this tournament?
+    </p>
+
+    <div class="confirm-buttons">
+
+      <button onclick="closeModal('confirmModal')">
+        Cancel
+      </button>
+
+      <button onclick="openJoinForm()">
+        Join
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- JOIN FORM -->
+<div id="joinModal" class="modal">
+
+  <div class="join-form">
+
+    <button
+      class="close"
+      onclick="closeModal('joinModal')">
+      ✕
+    </button>
+
+    <h2>🎮 Join Tournament</h2>
+
+    <div class="join-field">
+      <label>Free Fire User Name</label>
+      <input id="playerName"
+             placeholder="Enter user name">
+    </div>
+
+    <div class="join-field">
+      <label>Free Fire User ID</label>
+      <input id="playerId"
+             placeholder="Enter user ID">
+    </div>
+
+    <button
+      class="btn"
+      style="width:100%;margin-top:10px"
+      onclick="submitJoin()">
+      SUBMIT
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const matches = [
+
+{
+ id:"53852",
+ name:"FREE FIRE DUO MATCH",
+ title:"FREE FIRE DUO MATCH #53852",
+ status:"upcoming",
+ time:"2026-08-25 10:15 AM",
+ prize:"₹380",
+ kill:"₹3",
+ entry:"₹5",
+ type:"Duo",
+ version:"TPP",
+ map:"BERMUDA"
+},
+
+{
+ id:"53854",
+ name:"FREE FIRE SQUAD MATCH",
+ title:"FREE FIRE SQUAD MATCH #53854",
+ status:"upcoming",
+ time:"2026-08-25 10:45 AM",
+ prize:"₹380",
+ kill:"₹7",
+ entry:"₹8",
+ type:"Squad",
+ version:"TPP",
+ map:"BERMUDA"
+},
+
+{
+ id:"53855",
+ name:"FREE FIRE SOLO MATCH",
+ title:"FREE FIRE SOLO MATCH #53855",
+ status:"live",
+ time:"LIVE NOW",
+ prize:"₹500",
+ kill:"₹5",
+ entry:"₹10",
+ type:"Solo",
+ version:"TPP",
+ map:"BERMUDA"
+},
+
+{
+ id:"53840",
+ name:"FREE FIRE DUO MATCH",
+ title:"FREE FIRE DUO MATCH #53840",
+ status:"result",
+ time:"COMPLETED",
+ prize:"₹380",
+ kill:"₹3",
+ entry:"₹5",
+ type:"Duo",
+ version:"TPP",
+ map:"BERMUDA"
+}
+
+];
+
+let selectedMatch=null;
+let joined=[];
+
+
+function card(m){
+
+let statusText =
+m.status==="live" ? "● LIVE" :
+m.status==="result" ? "● RESULT" :
+"● UPCOMING";
+
+return `
+
+<div class="match">
+
+<div class="match-head">
+
+<div class="game">
+${m.name}
+</div>
+
+<div class="status ${m.status}">
+${statusText}
+</div>
+
+</div>
+
+<h3>${m.title}</h3>
+
+<div class="time">
+🕒 ${m.time}
+</div>
+
+<div class="info">
+
+<div class="info-box">
+<div class="info-title">🏆 Prize Pool</div>
+<div class="info-value">${m.prize}</div>
+</div>
+
+<div class="info-box">
+<div class="info-title">🎯 Per Kill</div>
+<div class="info-value">${m.kill}</div>
+</div>
+
+<div class="info-box">
+<div class="info-title">💰 Entry Fee</div>
+<div class="info-value">${m.entry}</div>
+</div>
+
+</div>
+
+<div class="info">
+
+<div class="info-box">
+<div class="info-title">Type</div>
+<div class="info-value">${m.type}</div>
+</div>
+
+<div class="info-box">
+<div class="info-title">Version</div>
+<div class="info-value">${m.version}</div>
+</div>
+
+<div class="info-box">
+<div class="info-title">Map</div>
+<div class="info-value">${m.map}</div>
+</div>
+
+</div>
+
+${
+m.status==="result"
+
+? `<button class="join"
+onclick="alert('Result for Match #${m.id}')">
+VIEW RESULT
+</button>`
+
+: `<button class="join"
+onclick="openMatch('${m.id}')">
+${m.status==="live"?"VIEW MATCH":"JOIN MATCH"}
+</button>`
+}
+
+</div>
+
+`;
 
 }
 
 
-/* =====================================================
-   LOAD HOME
-===================================================== */
+function loadHome(){
 
-function loadHomeMatches(){
-
-  const container =
-    document.getElementById("homeMatches");
-
-  if(!container) return;
-
-
-  const upcoming =
-    matches
-      .filter(m => m.status === "upcoming")
-      .slice(0,2);
-
-
-  if(upcoming.length === 0){
-
-    container.innerHTML = `
-      <div class="empty">
-        <div class="empty-icon">🎮</div>
-        <h3>No Upcoming Matches</h3>
-        <p style="margin-top:8px">
-          New matches will appear here.
-        </p>
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    upcoming
-      .map(createMatchCard)
-      .join("");
+document.getElementById("homeMatches").innerHTML =
+matches
+.filter(m=>m.status==="upcoming")
+.map(card)
+.join("");
 
 }
 
 
-/* =====================================================
-   FILTER MATCHES
-===================================================== */
+function filter(type,btn){
 
-function filterMatches(type,button){
+document
+.querySelectorAll(".tab")
+.forEach(x=>x.classList.remove("active"));
 
-  document
-    .querySelectorAll(".tab")
-    .forEach(tab =>
-      tab.classList.remove("active")
-    );
+btn.classList.add("active");
 
+let list =
+matches.filter(m=>m.status===type);
 
-  if(button){
-    button.classList.add("active");
-  }
-
-
-  const container =
-    document.getElementById("matchesList");
-
-  if(!container) return;
-
-
-  const filtered =
-    matches.filter(m => m.status === type);
-
-
-  if(filtered.length === 0){
-
-    container.innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">🎮</div>
-
-        <h3>No Matches Found</h3>
-
-        <p style="margin-top:8px">
-          New matches will appear here.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    filtered
-      .map(createMatchCard)
-      .join("");
+document.getElementById("matchesList").innerHTML =
+list.length
+? list.map(card).join("")
+: `<div class="empty">
+<div>🎮</div>
+<h3>No Matches Found</h3>
+<p style="margin-top:8px">
+New matches will appear here.
+</p>
+</div>`;
 
 }
 
-
-/* =====================================================
-   PAGE NAVIGATION
-===================================================== */
 
 function openPage(page){
 
-  document
-    .querySelectorAll(".page")
-    .forEach(p =>
-      p.classList.remove("active")
-    );
+document
+.querySelectorAll(".page")
+.forEach(x=>x.classList.remove("active"));
 
+document
+.getElementById(page)
+.classList.add("active");
 
-  const target =
-    document.getElementById(page);
+document
+.querySelectorAll(".nav")
+.forEach(x=>x.classList.remove("active"));
 
+let nav={
+home:0,
+matches:1,
+myMatches:2,
+profile:3
+};
 
-  if(!target) return;
+if(nav[page]!==undefined){
 
-
-  target.classList.add("active");
-
-
-  document
-    .querySelectorAll(".nav")
-    .forEach(n =>
-      n.classList.remove("active")
-    );
-
-
-  const nav =
-    document.querySelectorAll(".nav");
-
-
-  if(page === "home" && nav[0])
-    nav[0].classList.add("active");
-
-
-  if(page === "matches" && nav[1])
-    nav[1].classList.add("active");
-
-
-  if(page === "myMatches" && nav[2])
-    nav[2].classList.add("active");
-
-
-  if(page === "profile" && nav[3])
-    nav[3].classList.add("active");
-
-
-  window.scrollTo({
-    top:0,
-    behavior:"instant"
-  });
-
-
-  if(page === "matches"){
-
-    filterMatches(
-      "ongoing",
-      document.querySelectorAll(".tab")[0]
-    );
-
-  }
-
-
-  if(page === "myMatches"){
-
-    renderMyMatches();
-
-  }
-
-
-  if(page === "wallet"){
-
-    updateWalletUI();
-    loadTransactions();
-
-  }
+document
+.querySelectorAll(".nav")[nav[page]]
+.classList.add("active");
 
 }
 
+window.scrollTo(0,0);
 
-/* =====================================================
-   OPEN MATCH
-===================================================== */
+if(page==="matches"){
+filter(
+"upcoming",
+document.querySelectorAll(".tab")[0]
+);
+}
+
+if(page==="myMatches"){
+renderJoined();
+}
+
+}
+
 
 function openMatch(id){
 
-  const match =
-    matches.find(m => m.id === id);
+selectedMatch =
+matches.find(x=>x.id===id);
 
+if(!selectedMatch)return;
 
-  if(!match) return;
+document.getElementById("modalTitle")
+.innerText=selectedMatch.name;
 
+document.getElementById("modalId")
+.innerText=selectedMatch.title;
 
-  selectedMatch = match;
+document.getElementById("modalPrize")
+.innerText=selectedMatch.prize;
 
+document.getElementById("modalKill")
+.innerText=selectedMatch.kill;
 
-  if(joinedMatches.some(item => item.match.id === id)){
+document.getElementById("modalEntry")
+.innerText=selectedMatch.entry;
 
-    alert(
-      "You have already joined this match."
-    );
+document.getElementById("modalType")
+.innerText=selectedMatch.type;
 
-    return;
+document.getElementById("modalMap")
+.innerText=selectedMatch.map;
 
-  }
-
-
-  document.getElementById("modalTitle")
-    .innerText = match.name;
-
-
-  document.getElementById("modalId")
-    .innerText = match.title;
-
-
-  document.getElementById("modalPrize")
-    .innerText = match.prize;
-
-
-  document.getElementById("modalKill")
-    .innerText = match.kill;
-
-
-  document.getElementById("modalEntry")
-    .innerText = match.entry;
-
-
-  document.getElementById("modalType")
-    .innerText = match.type;
-
-
-  document.getElementById("modalMap")
-    .innerText = match.map;
-
-
-  document
-    .getElementById("matchModal")
-    .classList.add("show");
+document
+.getElementById("matchModal")
+.classList.add("show");
 
 }
 
-
-/* =====================================================
-   START JOIN
-===================================================== */
 
 function startJoin(){
 
-  if(!selectedMatch) return;
+if(!selectedMatch)return;
 
+closeModal("matchModal");
 
-  const entry =
-    Number(
-      selectedMatch.entry
-        .replace("₹","")
-        .trim()
-    );
+document.getElementById("deduct")
+.innerText=
+selectedMatch.entry.replace("₹","");
 
-
-  const balance =
-    getTotalBalance();
-
-
-  if(balance < entry){
-
-    closeModal("matchModal");
-
-
-    alert(
-      "Insufficient wallet balance.\n\n" +
-      "Entry Fee: ₹" + entry +
-      "\nYour Balance: ₹" + balance
-    );
-
-
-    return;
-
-  }
-
-
-  document
-    .getElementById("matchModal")
-    .classList.remove("show");
-
-
-  document
-    .getElementById("deductAmount")
-    .innerText = entry;
-
-
-  document
-    .getElementById("confirmModal")
-    .classList.add("show");
+document
+.getElementById("confirmModal")
+.classList.add("show");
 
 }
 
-
-/* =====================================================
-   OPEN USER FORM
-===================================================== */
 
 function openJoinForm(){
 
-  document
-    .getElementById("confirmModal")
-    .classList.remove("show");
+closeModal("confirmModal");
 
-
-  document
-    .getElementById("joinFormModal")
-    .classList.add("show");
+document
+.getElementById("joinModal")
+.classList.add("show");
 
 }
 
-
-/* =====================================================
-   SUBMIT JOIN
-===================================================== */
 
 function submitJoin(){
 
-  const name =
-    document
-      .getElementById("playerName")
-      .value
-      .trim();
+let name =
+document.getElementById("playerName").value.trim();
 
+let id =
+document.getElementById("playerId").value.trim();
 
-  const id =
-    document
-      .getElementById("playerId")
-      .value
-      .trim();
+if(!name){
+alert("Please enter Free Fire User Name");
+return;
+}
 
+if(!id){
+alert("Please enter Free Fire User ID");
+return;
+}
 
-  if(!name){
+joined.push({
+match:selectedMatch,
+name:name,
+id:id
+});
 
-    alert(
-      "Please enter your Free Fire user name."
-    );
+closeModal("joinModal");
 
-    return;
+document.getElementById("playerName").value="";
+document.getElementById("playerId").value="";
 
-  }
+alert("✅ Match joined successfully!");
 
-
-  if(!id){
-
-    alert(
-      "Please enter your Free Fire user ID."
-    );
-
-    return;
-
-  }
-
-
-  if(!selectedMatch) return;
-
-
-  const entry =
-    Number(
-      selectedMatch.entry
-        .replace("₹","")
-        .trim()
-    );
-
-
-  if(getTotalBalance() < entry){
-
-    closeModal("joinFormModal");
-
-    alert("Insufficient wallet balance.");
-
-    return;
-
-  }
-
-
-  /*
-     ENTRY FEE IS DEDUCTED FROM WINNINGS
-     FIRST.
-  */
-
-  let remaining = entry;
-
-
-  if(wallet.winnings >= remaining){
-
-    wallet.winnings -= remaining;
-
-    remaining = 0;
-
-  }else{
-
-    remaining -= wallet.winnings;
-
-    wallet.winnings = 0;
-
-  }
-
-
-  if(remaining > 0){
-
-    if(wallet.deposit >= remaining){
-
-      wallet.deposit -= remaining;
-
-      remaining = 0;
-
-    }else{
-
-      remaining -= wallet.deposit;
-
-      wallet.deposit = 0;
-
-    }
-
-  }
-
-
-  joinedMatches.push({
-
-    match:selectedMatch,
-
-    playerName:name,
-
-    playerId:id,
-
-    joinedAt:getCurrentDate()
-
-  });
-
-
-  transactionList.unshift({
-
-    type:"game-entry",
-
-    title:selectedMatch.title,
-
-    date:getCurrentDate(),
-
-    status:"completed",
-
-    amount:"₹" + entry
-
-  });
-
-
-  closeModal("joinFormModal");
-
-
-  document.getElementById("playerName").value = "";
-
-  document.getElementById("playerId").value = "";
-
-
-  updateWalletUI();
-
-  loadTransactions();
-
-  loadHomeMatches();
-
-  filterMatches(
-    "ongoing",
-    document.querySelectorAll(".tab")[0]
-  );
-
-
-  alert(
-    "Join request submitted successfully!\n\n" +
-    "Match: " + selectedMatch.title +
-    "\nEntry Fee: ₹" + entry
-  );
-
-
-  renderMyMatches();
+renderJoined();
 
 }
 
 
-/* =====================================================
-   MY MATCHES
-===================================================== */
+function renderJoined(){
 
-function renderMyMatches(){
+let box =
+document.getElementById("myMatchesList");
 
-  const container =
-    document.getElementById("myMatchesList");
+if(joined.length===0){
 
+box.innerHTML=`
 
-  if(!container) return;
+<div class="empty">
 
+<div>🎮</div>
 
-  if(joinedMatches.length === 0){
+<h3>No Joined Matches</h3>
 
-    container.innerHTML = `
+<p style="margin-top:8px">
+Join a tournament and your matches
+will appear here.
+</p>
 
-      <div class="empty">
+<button class="btn"
+style="margin-top:18px"
+onclick="openPage('matches')">
+FIND MATCH
+</button>
 
-        <div class="empty-icon">🎮</div>
+</div>
 
-        <h3>No Joined Matches</h3>
+`;
 
-        <p style="margin-top:8px">
-          Join a tournament and your matches
-          will appear here.
-        </p>
-
-        <button class="primary-btn"
-                style="margin-top:18px"
-                onclick="openPage('matches')">
-          FIND MATCH
-        </button>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    joinedMatches
-      .map(item => {
-
-        const m = item.match;
-
-
-        return `
-
-        <div class="match">
-
-          <div class="match-top">
-
-            <div class="game">
-              ${m.name}
-            </div>
-
-            <div class="status ongoing">
-              ● JOINED
-            </div>
-
-          </div>
-
-
-          <h3 style="margin-top:8px">
-            ${m.title}
-          </h3>
-
-
-          <div class="match-time">
-            🕒 ${m.time}
-          </div>
-
-
-          <div style="
-            margin-top:12px;
-            padding:12px;
-            border-radius:12px;
-            background:#f0e3f5;
-          ">
-
-            <b>Player:</b> ${item.playerName}
-            <br>
-
-            <b>User ID:</b> ${item.playerId}
-            <br>
-
-            <b>Joined:</b> ${item.joinedAt}
-
-          </div>
-
-        </div>
-
-        `;
-
-      })
-      .join("");
+return;
 
 }
 
+box.innerHTML =
+joined.map(x=>`
 
-/* =====================================================
-   MODAL CLOSE
-===================================================== */
+<div class="match">
+
+<div class="game">
+${x.match.name}
+</div>
+
+<h3>${x.match.title}</h3>
+
+<div class="time">
+🕒 ${x.match.time}
+</div>
+
+<p style="
+margin-top:12px;
+padding:12px;
+border-radius:12px;
+background:#f0e3f5">
+
+<b>Player:</b> ${x.name}<br>
+<b>User ID:</b> ${x.id}
+
+</p>
+
+</div>
+
+`).join("");
+
+}
+
 
 function closeModal(id){
 
-  const modal =
-    document.getElementById(id);
-
-
-  if(modal){
-
-    modal.classList.remove("show");
-
-  }
+document
+.getElementById(id)
+.classList.remove("show");
 
 }
 
 
-/* =====================================================
-   RESULT
-===================================================== */
+function notification(){
 
-function showResult(id){
-
-  const match =
-    matches.find(m => m.id === id);
-
-
-  if(!match) return;
-
-
-  alert(
-    "🏆 MATCH RESULT\n\n" +
-    match.title +
-    "\n\nResult will be available here."
-  );
+alert(
+"🔔 TRUSTED OP Notifications\n\n"+
+"No new notifications."
+);
 
 }
 
-
-/* =====================================================
-   NOTIFICATION
-===================================================== */
-
-function showNotification(){
-
-  alert(
-    "🔔 TRUSTED OP Notifications\n\n" +
-    "No new notifications."
-  );
-
-}
-
-
-/* =====================================================
-   PROFILE MESSAGE
-===================================================== */
-
-function simpleMessage(title){
-
-  alert(
-    title +
-    "\n\nThis section is ready for backend connection."
-  );
-
-}
-
-
-/* =====================================================
-   WALLET HISTORY
-===================================================== */
-
-function openWalletHistory(){
-
-  openPage("wallet");
-
-
-  setTimeout(() => {
-
-    const transactions =
-      document.getElementById("transactions");
-
-
-    if(transactions){
-
-      transactions.scrollIntoView({
-        behavior:"smooth"
-      });
-
-    }
-
-  },150);
-
-}
-
-
-/* =====================================================
-   TRANSACTIONS
-===================================================== */
-
-function loadTransactions(){
-
-  const container =
-    document.getElementById("transactions");
-
-
-  if(!container) return;
-
-
-  if(transactionList.length === 0){
-
-    container.innerHTML = `
-
-      <div class="empty">
-
-        <div class="empty-icon">💳</div>
-
-        <h3>No Transactions</h3>
-
-        <p style="margin-top:8px">
-          Your wallet transactions will appear here.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    transactionList
-      .map((tx,index) => {
-
-        return `
-
-        <div class="transaction">
-
-          <div class="tx-number">
-            ${index + 1}
-          </div>
-
-
-          <div>
-
-            <div class="tx-title">
-              ${tx.type}
-            </div>
-
-            <div class="tx-title">
-              ${tx.title}
-            </div>
-
-            <div class="tx-sub">
-              ${tx.date}
-            </div>
-
-          </div>
-
-
-          <div style="text-align:right">
-
-            <div class="tx-status
-              ${tx.status === "rejected"
-                ? "rejected"
-                : ""}">
-              ${tx.status}
-            </div>
-
-            <div class="tx-amount">
-              ${tx.amount}
-            </div>
-
-          </div>
-
-        </div>
-
-        `;
-
-      })
-      .join("");
-
-}
-
-
-/* =====================================================
-   DEPOSIT
-===================================================== */
 
 function setDeposit(amount){
 
-  const input =
-    document.getElementById("depositAmount");
-
-
-  if(input){
-
-    input.value = amount;
-
-  }
+document.getElementById("depositAmount")
+.value=amount;
 
 }
 
 
-function depositDemo(){
+function deposit(){
 
-  const input =
-    document.getElementById("depositAmount");
+let amount =
+document.getElementById("depositAmount").value;
 
+if(!amount || Number(amount)<=0){
 
-  const amount =
-    Number(input.value);
+alert("Please enter a valid amount.");
 
-
-  if(!amount || amount <= 0){
-
-    alert(
-      "Please enter a valid amount."
-    );
-
-    return;
-
-  }
-
-
-  if(amount < 20){
-
-    alert(
-      "Minimum deposit amount is ₹20."
-    );
-
-    return;
-
-  }
-
-
-  /*
-     REAL PAYMENT IS NOT CONNECTED.
-     DO NOT ADD MONEY AUTOMATICALLY.
-  */
-
-  alert(
-    "Deposit system is not connected yet.\n\n" +
-    "Selected amount: ₹" + amount +
-    "\n\nConnect your payment gateway/backend here."
-  );
+return;
 
 }
 
+alert(
+"Deposit system is not connected yet.\n\n"+
+"Amount: ₹"+amount
+);
 
-/* =====================================================
-   WITHDRAW AMOUNT
-===================================================== */
+}
+
 
 function setWithdraw(amount){
 
-  const input =
-    document.getElementById("withdrawAmount");
-
-
-  if(input){
-
-    input.value = amount;
-
-  }
+document.getElementById("withdrawAmount")
+.value=amount;
 
 }
 
 
-/* =====================================================
-   LOCATION PERMISSION
-===================================================== */
+function withdraw(){
 
-function requestLocationPermission(callback){
+let upi =
+document.getElementById("upi").value.trim();
 
-  if(!navigator.geolocation){
+let holder =
+document.getElementById("holder").value.trim();
 
-    alert(
-      "Location permission is not supported on this device."
-    );
+let amount =
+document.getElementById("withdrawAmount").value;
 
-    return;
+if(!upi){
 
-  }
+alert("Please enter your UPI ID.");
 
-
-  navigator.geolocation.getCurrentPosition(
-
-    function(position){
-
-      /*
-         Permission granted.
-         Location is intentionally not sent anywhere
-         in this frontend-only version.
-      */
-
-      if(typeof callback === "function"){
-
-        callback(position);
-
-      }
-
-    },
-
-    function(error){
-
-      if(error.code === 1){
-
-        alert(
-          "Location permission is required before withdrawal."
-        );
-
-      }else{
-
-        alert(
-          "Unable to get your location. Please try again."
-        );
-
-      }
-
-    },
-
-    {
-      enableHighAccuracy:false,
-      timeout:10000,
-      maximumAge:60000
-    }
-
-  );
+return;
 
 }
 
+if(!holder){
 
-/* =====================================================
-   WITHDRAW
-===================================================== */
+alert("Please enter account holder name.");
 
-function withdrawDemo(){
-
-  const upi =
-    document
-      .getElementById("upi")
-      .value
-      .trim();
-
-
-  const holder =
-    document
-      .getElementById("holder")
-      .value
-      .trim();
-
-
-  const amount =
-    Number(
-      document
-        .getElementById("withdrawAmount")
-        .value
-    );
-
-
-  if(!upi){
-
-    alert(
-      "Please enter your UPI ID."
-    );
-
-    return;
-
-  }
-
-
-  if(!holder){
-
-    alert(
-      "Please enter account holder name."
-    );
-
-    return;
-
-  }
-
-
-  if(!amount || amount <= 0){
-
-    alert(
-      "Please select a valid withdrawal amount."
-    );
-
-    return;
-
-  }
-
-
-  if(amount < 30){
-
-    alert(
-      "Minimum withdrawal amount is ₹30."
-    );
-
-    return;
-
-  }
-
-
-  if(amount > wallet.winnings){
-
-    alert(
-      "You can withdraw only from winnings.\n\n" +
-      "Available winnings: ₹" +
-      wallet.winnings
-    );
-
-    return;
-
-  }
-
-
-  /*
-     Ask for location permission before
-     proceeding with withdrawal request.
-  */
-
-  requestLocationPermission(function(){
-
-    /*
-       Frontend demo:
-       Money is NOT actually transferred.
-    */
-
-    withdrawalRequests.unshift({
-
-      upi:upi,
-
-      holder:holder,
-
-      amount:amount,
-
-      date:getCurrentDate(),
-
-      status:"pending"
-
-    });
-
-
-    transactionList.unshift({
-
-      type:"withdraw",
-
-      title:"Withdrawal Request",
-
-      date:getCurrentDate(),
-
-      status:"pending",
-
-      amount:"₹" + amount
-
-    });
-
-
-    /*
-       Don't deduct real winnings here because
-       this frontend does not have a secure backend.
-    */
-
-
-    loadTransactions();
-
-
-    alert(
-      "Withdrawal request submitted.\n\n" +
-      "Amount: ₹" + amount +
-      "\nUPI: " + upi +
-      "\nStatus: Pending"
-    );
-
-
-    document.getElementById("upi").value = "";
-
-    document.getElementById("holder").value = "";
-
-    document.getElementById("withdrawAmount").value = "";
-
-  });
+return;
 
 }
 
+if(!amount){
 
-/* =====================================================
-   WITHDRAWAL LIST
-===================================================== */
+alert("Please enter withdrawal amount.");
 
-function showWithdrawalList(){
-
-  if(withdrawalRequests.length === 0){
-
-    alert(
-      "Withdrawal List\n\n" +
-      "No withdrawal requests found."
-    );
-
-    return;
-
-  }
-
-
-  let text =
-    "WITHDRAWAL LIST\n\n";
-
-
-  withdrawalRequests.forEach(
-    (item,index) => {
-
-      text +=
-        (index + 1) +
-        ". ₹" + item.amount +
-        "\n" +
-        "UPI: " + item.upi +
-        "\n" +
-        "Status: " + item.status +
-        "\n" +
-        item.date +
-        "\n\n";
-
-    }
-  );
-
-
-  alert(text);
+return;
 
 }
 
-
-/* =====================================================
-   CLOSE MODAL ON OUTSIDE CLICK
-===================================================== */
-
-document
-  .querySelectorAll(".modal")
-  .forEach(modal => {
-
-    modal.addEventListener(
-      "click",
-      function(event){
-
-        if(event.target === modal){
-
-          modal.classList.remove("show");
-
-        }
-
-      }
-    );
-
-  });
-
-
-/* =====================================================
-   ESC KEY CLOSE
-===================================================== */
-
-document.addEventListener(
-  "keydown",
-  function(event){
-
-    if(event.key === "Escape"){
-
-      document
-        .querySelectorAll(".modal.show")
-        .forEach(modal =>
-          modal.classList.remove("show")
-        );
-
-    }
-
-  }
+alert(
+"Withdrawal system is not connected yet.\n\n"+
+"Amount: ₹"+amount
 );
 
+}
 
-/* =====================================================
-   START APP
-===================================================== */
 
-loadHomeMatches();
+const transactions=[
 
+["1","game-entry","FF SQUAD MATCH - PC","25/08/2026 09:33 AM","₹5"],
+["2","game-entry","FF SQUAD MATCH - PC","25/08/2026 09:32 AM","₹5"],
+["3","withdraw","withdraw","25/08/2026 01:13 AM","₹90"],
+["4","withdraw","withdraw","25/08/2026 01:02 AM","₹150"],
+["5","game-entry","FF SOLO MATCH - POV","24/08/2026 10:22 PM","₹6"],
+["6","game-entry","FF DUO MATCH - POV","24/08/2026 10:13 PM","₹8"],
+["7","game-entry","FF DUO MATCH - POV","24/08/2026 09:41 PM","₹15"],
+["8","game-entry","FF DUO MATCH - POV","24/08/2026 09:40 PM","₹6"]
+
+];
+
+
+function loadTransactions(){
+
+document.getElementById("transactions").innerHTML=
+
+transactions.map(x=>`
+
+<div class="match"
+style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+">
+
+<div>
+
+<b>${x[1]}</b>
+
+<div style="font-size:13px;margin-top:5px">
+${x[2]}
+</div>
+
+<div style="
+font-size:11px;
+color:#777;
+margin-top:5px
+">
+${x[3]}
+</div>
+
+</div>
+
+<strong>
+${x[4]}
+</strong>
+
+</div>
+
+`).join("");
+
+}
+
+
+loadHome();
 loadTransactions();
 
-updateWalletUI();
-
-filterMatches(
-  "ongoing",
-  document.querySelectorAll(".tab")[0]
+filter(
+"upcoming",
+document.querySelectorAll(".tab")[0]
 );
 
-
-/* =====================================================
-   FIX WITHDRAWAL LIST BUTTON
-===================================================== */
-
-const withdrawalButton =
-  document.querySelector(".withdraw-list-btn");
-
-
-if(withdrawalButton){
-
-  withdrawalButton.onclick =
-    showWithdrawalList;
-
-}
-
 </script>
+
+</body>
+</html>
